@@ -13,7 +13,14 @@ function App() {
             </Heading>
           </Box>
           <Flex height="100%" as="section" className="App-body">
-            <Box width={280} height="100%" borderRight="1px solid #ccc" p={3} as="aside">
+            <Box
+              display={['none', 'none', 'none', 'block']}
+              width={280}
+              height="100%"
+              borderRight="1px solid #ccc"
+              p={3}
+              as="aside"
+            >
               This is sidebar
             </Box>
             <Box width="100%" height="100%" p={3} textAlign="center" as="section">

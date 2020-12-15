@@ -6,20 +6,23 @@ const AddTimestampForm = ({ setAddType, setTimestampList }) => {
   const handleCancel = () => setAddType('');
   const { register, handleSubmit } = useForm();
 
-  const onSubmit = (data) => setTimestampList((prev) => [...prev, data]);
+  const onSubmit = (data) => {
+    console.log(data);
+    setTimestampList((prev) => [...prev, data]);
+  };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <Box mt={4} border="1px solid" p={4}>
+      <Box my={4} border="1px solid" p={4}>
         <Heading as="h4" size="sm">
           新增時間軸
         </Heading>
-        <Flex mt={4} align="flex-end">
+        <Flex mt={4} align="flex-end" flexWrap={['wrap', 'wrap', 'nowrap', 'nowrap']}>
           <TimeSelector register={register} />
-          <Button w="12%" onClick={handleCancel}>
+          <Button mt={[2, 2, 0, 0]} mr={2} w={['33%', '33%', '12.5%', '12.5%']} onClick={handleCancel}>
             取消
           </Button>
-          <Button type="submit" w="12%">
+          <Button mt={[2, 2, 0, 0]} mr={2} type="submit" w={['33%', '33%', '15%', '12.5%']}>
             新增時間軸
           </Button>
         </Flex>
