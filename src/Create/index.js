@@ -80,8 +80,10 @@ const Create = () => {
       setAddType(clickType);
     }
   };
-  const handleSetVideoTime = (hour, minute, second) => () =>
+  const handleSetVideoTime = (hour, minute, second) => () => {
     video.seekTo(parseInt(hour, 10) * 3600 + parseInt(minute, 10) * 60 + parseInt(second, 10));
+    window.scrollTo(0, 0);
+  };
 
   const handleDeleteTimeStamp = (index) => () => setTimestampList((prev) => remove(index, 1, prev));
 

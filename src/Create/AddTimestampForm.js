@@ -7,8 +7,8 @@ const AddTimestampForm = ({ setAddType, setTimestampList }) => {
   const { register, handleSubmit } = useForm();
 
   const onSubmit = (data) => {
-    console.log(data);
     setTimestampList((prev) => [...prev, data]);
+    window.scrollTo(0, document.body.scrollHeight);
   };
 
   return (
