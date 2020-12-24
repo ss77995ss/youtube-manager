@@ -16,6 +16,7 @@ import YouTube from 'react-youtube';
 import { useHistory } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { useLocalStorage } from 'react-use';
+import { v1 as uuidv1 } from 'uuid';
 import { remove } from 'ramda';
 import AddTimestampForm from './AddTimestampForm';
 
@@ -63,6 +64,8 @@ const Create = () => {
   const onSubmit = (data) => {
     const newVideo = {
       ...data,
+      id: uuidv1(),
+      videoId,
       timestampList,
     };
 
