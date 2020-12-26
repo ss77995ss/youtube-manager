@@ -1,6 +1,9 @@
-import { Box } from '@chakra-ui/react';
+import { Box, List, ListItem } from '@chakra-ui/react';
+import { useLocalStorage } from 'react-use';
 
 const Sidebar = () => {
+  const [videos] = useLocalStorage('videos');
+
   return (
     <Box
       display={['none', 'none', 'none', 'block']}
@@ -10,7 +13,7 @@ const Sidebar = () => {
       p={3}
       as="aside"
     >
-      This is sidebar
+      <List>{videos && videos.map((video, index) => <ListItem>{video.title}</ListItem>)}</List>
     </Box>
   );
 };
