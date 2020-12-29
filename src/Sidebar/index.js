@@ -1,8 +1,8 @@
 import { Box, List, ListItem } from '@chakra-ui/react';
-import { useLocalStorage } from 'react-use';
+import { useVideosCtx } from '../hooks/useVideos';
 
 const Sidebar = () => {
-  const [videos] = useLocalStorage('videos');
+  const { videos } = useVideosCtx();
 
   return (
     <Box

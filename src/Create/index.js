@@ -15,9 +15,9 @@ import {
 import YouTube from 'react-youtube';
 import { useHistory } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import { useLocalStorage } from 'react-use';
 import { v1 as uuidv1 } from 'uuid';
 import { remove } from 'ramda';
+import { useVideosCtx } from '../hooks/useVideos';
 import AddTimestampForm from './AddTimestampForm';
 
 const getVideoId = (url) => {
@@ -52,7 +52,7 @@ const renderForm = (addType, setAddType, setTimestampList) => {
 
 const Create = () => {
   const history = useHistory();
-  const [videos, setVideosOnLocalStorage] = useLocalStorage('videos', []);
+  const { addNewVideo } = useVideosCtx();
   const { register, handleSubmit, watch, errors } = useForm();
   const [video, setVideo] = useState('pend');
   const [videoError, setVideoError] = useState(false);
@@ -69,7 +69,7 @@ const Create = () => {
       timestampList,
     };
 
-    setVideosOnLocalStorage([...videos, newVideo]);
+    addNewVideo(newVideo);
     history.push('/');
   };
   const handleReady = (event) => setVideo(() => event.target);
