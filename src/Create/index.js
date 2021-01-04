@@ -18,6 +18,7 @@ import { useForm } from 'react-hook-form';
 import { v1 as uuidv1 } from 'uuid';
 import { remove } from 'ramda';
 import { useVideosCtx } from '../hooks/useVideos';
+import useYoutube from '../hooks/useYouTube';
 import AddTimestampForm from './AddTimestampForm';
 
 const getVideoId = (url) => {
@@ -54,8 +55,7 @@ const Create = () => {
   const history = useHistory();
   const { addNewVideo } = useVideosCtx();
   const { register, handleSubmit, watch, errors } = useForm();
-  const [video, setVideo] = useState('pend');
-  const [videoError, setVideoError] = useState(false);
+  const { video, videoError, handleSetVideoTime, handleReady, handlePlay, handleError } = useYoutube();
   const [addType, setAddType] = useState('');
   const [timestampList, setTimestampList] = useState([]);
   const currentVideoUrl = watch('url');
@@ -72,9 +72,7 @@ const Create = () => {
     addNewVideo(newVideo);
     history.push('/');
   };
-  const handleReady = (event) => setVideo(() => event.target);
-  const handlePlay = () => setVideoError(false);
-  const handleError = () => setVideoError(true);
+
   const handleSwitchAddType = (event) => {
     const clickType = event.target.value;
     if (clickType === addType) {
@@ -82,10 +80,6 @@ const Create = () => {
     } else {
       setAddType(clickType);
     }
-  };
-  const handleSetVideoTime = (hour, minute, second) => () => {
-    video.seekTo(parseInt(hour, 10) * 3600 + parseInt(minute, 10) * 60 + parseInt(second, 10));
-    window.scrollTo(0, 0);
   };
 
   const handleDeleteTimeStamp = (index) => () => setTimestampList((prev) => remove(index, 1, prev));

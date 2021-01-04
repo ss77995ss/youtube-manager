@@ -3,6 +3,7 @@ import { ChakraProvider, Box, Flex, Heading } from '@chakra-ui/react';
 import { VideosProvider } from './hooks/useVideos';
 import Sidebar from './Sidebar';
 import Create from './Create';
+import Show from './Show';
 
 function App() {
   return (
@@ -24,6 +25,9 @@ function App() {
                   </Route>
                   <Route path="/create">
                     <Create />
+                  </Route>
+                  <Route path="/show/:id">
+                    <Show />
                   </Route>
                 </Switch>
               </Box>

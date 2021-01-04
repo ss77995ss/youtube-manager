@@ -1,4 +1,5 @@
 import { Box, List, ListItem } from '@chakra-ui/react';
+import { Link } from 'react-router-dom';
 import { useVideosCtx } from '../hooks/useVideos';
 
 const Sidebar = () => {
@@ -13,7 +14,16 @@ const Sidebar = () => {
       p={3}
       as="aside"
     >
-      <List>{videos && videos.map((video, index) => <ListItem>{video.title}</ListItem>)}</List>
+      <List>
+        {videos &&
+          videos.map((video, index) => (
+            <Link to={`/show/${video.id}`}>
+              <ListItem key={`sidebar-item-${index}`} cursor="pointer" _hover={{ bg: 'gray.300' }}>
+                {video.title}
+              </ListItem>
+            </Link>
+          ))}
+      </List>
     </Box>
   );
 };
