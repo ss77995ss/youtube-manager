@@ -5,6 +5,7 @@ export const videosMachine = Machine({
   initial: 'ready',
   context: {
     videos: [],
+    categories: ['Default'],
   },
   states: {
     ready: {},
@@ -17,7 +18,17 @@ export const videosMachine = Machine({
             return context.videos.concat(event.value);
           },
         }),
-        'persist',
+        'persistVideos',
+      ],
+    },
+    NEW_CATEGORY: {
+      actions: [
+        assign({
+          categories: (context, event) => {
+            return context.categories.concat(event.value);
+          },
+        }),
+        'persistCategories',
       ],
     },
   },

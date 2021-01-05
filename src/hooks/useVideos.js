@@ -5,9 +5,16 @@ import { videosMachine } from '../machine/videos';
 const persistedVideosMachine = videosMachine.withConfig(
   {
     actions: {
-      persist: (ctx) => {
+      persistVideos: ({ videos }) => {
         try {
-          localStorage.setItem('videos', JSON.stringify(ctx.videos));
+          localStorage.setItem('videos', JSON.stringify(videos));
+        } catch (e) {
+          console.error(e);
+        }
+      },
+      persistCategories: ({ categories }) => {
+        try {
+          localStorage.setItem('categories', JSON.stringify(categories));
         } catch (e) {
           console.error(e);
         }
@@ -24,6 +31,14 @@ const persistedVideosMachine = videosMachine.withConfig(
         return [];
       }
     })(),
+    categories: (() => {
+      try {
+        return JSON.parse(localStorage.getItem('categories')) || ['default'];
+      } catch (e) {
+        console.error(e);
+        return ['default'];
+      }
+    })(),
   },
 );
 
@@ -32,9 +47,12 @@ const VideosContext = createContext([]);
 const VideosProvider = ({ children }) => {
   const [state, send] = useMachine(persistedVideosMachine);
   const addNewVideo = (newVideo) => send({ type: 'NEW_VIDEO', value: newVideo });
+  const addNewCategories = (newCategory) => send({ type: 'NEW_CATEGORY', value: newCategory });
+
   const context = {
     ...state.context,
     addNewVideo,
+    addNewCategories,
   };
 
   return <VideosContext.Provider value={context}>{children}</VideosContext.Provider>;

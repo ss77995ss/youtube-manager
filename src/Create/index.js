@@ -7,6 +7,7 @@ import {
   FormLabel,
   Input,
   Button,
+  Select,
   Textarea,
   Tag,
   TagLabel,
@@ -53,7 +54,7 @@ const renderForm = (addType, setAddType, setTimestampList) => {
 
 const Create = () => {
   const history = useHistory();
-  const { addNewVideo } = useVideosCtx();
+  const { categories, addNewVideo } = useVideosCtx();
   const { register, handleSubmit, watch, errors } = useForm();
   const { video, videoError, handleSetVideoTime, handleReady, handlePlay, handleError } = useYoutube();
   const [addType, setAddType] = useState('');
@@ -62,6 +63,8 @@ const Create = () => {
   const videoId = currentVideoUrl ? getVideoId(currentVideoUrl) : '';
 
   const onSubmit = (data) => {
+    console.log(data);
+    debugger;
     const newVideo = {
       ...data,
       id: uuidv1(),
@@ -105,10 +108,24 @@ const Create = () => {
               />
               {errors.videoUrl && <span>影片網址格式錯誤</span>}
             </FormControl>
-            <FormControl>
-              <FormLabel htmlFor="title">影片標題*</FormLabel>
-              <Input name="title" placeholder="輸入影片標題" ref={register({ required: true })} />
-            </FormControl>
+            <Flex>
+              <FormControl pr={2}>
+                <FormLabel htmlFor="title">影片標題*</FormLabel>
+                <Input name="title" placeholder="輸入影片標題" ref={register({ required: true })} />
+              </FormControl>
+              <FormControl>
+                <FormLabel htmlFor="category">影片種類</FormLabel>
+                <Select name="category" ref={register}>
+                  <option value=""></option>
+                  {categories &&
+                    categories.map((category, index) => (
+                      <option key={`${category}-${index}`} value={category}>
+                        {category}
+                      </option>
+                    ))}
+                </Select>
+              </FormControl>
+            </Flex>
             <FormControl>
               <FormLabel htmlFor="description">影片敘述</FormLabel>
               <Textarea name="description" placeholder="輸入影片敘述" ref={register} />
