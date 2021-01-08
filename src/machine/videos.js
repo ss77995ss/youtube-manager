@@ -5,7 +5,7 @@ export const videosMachine = Machine({
   initial: 'ready',
   context: {
     videos: [],
-    categories: ['Default'],
+    categories: [],
   },
   states: {
     ready: {},

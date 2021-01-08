@@ -12,6 +12,7 @@ import {
   Tag,
   TagLabel,
   TagCloseButton,
+  useDisclosure,
 } from '@chakra-ui/react';
 import YouTube from 'react-youtube';
 import { useHistory } from 'react-router-dom';
@@ -20,6 +21,7 @@ import { v1 as uuidv1 } from 'uuid';
 import { remove } from 'ramda';
 import { useVideosCtx } from '../hooks/useVideos';
 import useYoutube from '../hooks/useYouTube';
+import AddCategoryForm from './AddCategoryForm';
 import AddTimestampForm from './AddTimestampForm';
 
 const getVideoId = (url) => {
@@ -54,6 +56,7 @@ const renderForm = (addType, setAddType, setTimestampList) => {
 
 const Create = () => {
   const history = useHistory();
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const { categories, addNewVideo } = useVideosCtx();
   const { register, handleSubmit, watch, errors } = useForm();
   const { video, videoError, handleSetVideoTime, handleReady, handlePlay, handleError } = useYoutube();
@@ -63,8 +66,6 @@ const Create = () => {
   const videoId = currentVideoUrl ? getVideoId(currentVideoUrl) : '';
 
   const onSubmit = (data) => {
-    console.log(data);
-    debugger;
     const newVideo = {
       ...data,
       id: uuidv1(),
@@ -108,13 +109,19 @@ const Create = () => {
               />
               {errors.videoUrl && <span>影片網址格式錯誤</span>}
             </FormControl>
-            <Flex>
+            <Flex mt={2}>
               <FormControl pr={2}>
                 <FormLabel htmlFor="title">影片標題*</FormLabel>
                 <Input name="title" placeholder="輸入影片標題" ref={register({ required: true })} />
               </FormControl>
               <FormControl>
-                <FormLabel htmlFor="category">影片種類</FormLabel>
+                <Flex>
+                  <FormLabel htmlFor="category">影片種類</FormLabel>
+                  <Button size="xs" onClick={onOpen}>
+                    管理影片種類
+                  </Button>
+                  <AddCategoryForm categories={categories} isOpen={isOpen} onClose={onClose} />
+                </Flex>
                 <Select name="category" ref={register}>
                   <option value=""></option>
                   {categories &&
@@ -127,7 +134,9 @@ const Create = () => {
               </FormControl>
             </Flex>
             <FormControl>
-              <FormLabel htmlFor="description">影片敘述</FormLabel>
+              <FormLabel mt={2} htmlFor="description">
+                影片敘述
+              </FormLabel>
               <Textarea name="description" placeholder="輸入影片敘述" ref={register} />
             </FormControl>
             <Button
