@@ -13,13 +13,17 @@ import {
   ModalCloseButton,
 } from '@chakra-ui/react';
 import { useVideosCtx } from '../hooks/useVideos';
+import EditableInput from './EditableInput';
+import InputErrorMessage from '../common/InputErrorMessage';
 
 const AddCategoryForm = ({ categories, isOpen, onClose }) => {
   const { register, handleSubmit, errors } = useForm();
-  const { addNewCategories } = useVideosCtx();
+  const { addNewCategories, updateCategory } = useVideosCtx();
+  const validator = (value) => categories.includes((category) => category === value);
 
   const onSubmit = ({ newCategory }) => addNewCategories(newCategory);
-  console.log(errors);
+  const handleUpdateCategory = (newCategory, index) => updateCategory(newCategory, index);
+
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
@@ -37,7 +41,7 @@ const AddCategoryForm = ({ categories, isOpen, onClose }) => {
                   placeholder="輸入種類名稱"
                   ref={register({
                     required: true,
-                    validate: (value) => categories.find((category) => category === value),
+                    validate: validator,
                   })}
                 />
                 <Button type="submit">新增</Button>
@@ -47,13 +51,18 @@ const AddCategoryForm = ({ categories, isOpen, onClose }) => {
                   請填入影片種類名稱
                 </Text>
               )}
-              {errors.newCategory?.type === 'validate' && (
-                <Text fontSize="xs" color="red.500">
-                  影片種類名稱不可以重複
-                </Text>
-              )}
+              {errors.newCategory?.type === 'validate' && <InputErrorMessage message="影片種類名稱不可以重複" />}
             </form>
-            {categories && categories.map((category, index) => <Text mt={2}>{category}</Text>)}
+            {categories &&
+              categories.map((category, index) => (
+                <EditableInput
+                  index={index}
+                  initialValue={category}
+                  onEdit={handleUpdateCategory}
+                  validator={validator}
+                  errorMessage="影片種類名稱不可以重複"
+                />
+              ))}
           </Box>
         </ModalBody>
       </ModalContent>

@@ -48,11 +48,15 @@ const VideosProvider = ({ children }) => {
   const [state, send] = useMachine(persistedVideosMachine);
   const addNewVideo = (newVideo) => send({ type: 'NEW_VIDEO', value: newVideo });
   const addNewCategories = (newCategory) => send({ type: 'NEW_CATEGORY', value: newCategory });
+  const updateCategory = (newCategory, index) => send({ type: 'UPDATE_CATEGORY', value: newCategory, index });
+  const deleteCategory = (index) => send({ type: 'DELETE_CATEGORY', index });
 
   const context = {
     ...state.context,
     addNewVideo,
     addNewCategories,
+    updateCategory,
+    deleteCategory,
   };
 
   return <VideosContext.Provider value={context}>{children}</VideosContext.Provider>;
