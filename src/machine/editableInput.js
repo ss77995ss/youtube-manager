@@ -3,10 +3,10 @@ import { Machine, assign } from 'xstate';
 export const editableInputMachine = Machine({
   id: 'editableInput',
   initial: 'view',
-  context: {
-    inputValue: '',
-    errorMessage: '',
-  },
+  // context: {
+  //   inputValue: '',
+  //   errorMessage: '',
+  // },
   states: {
     view: {
       on: { OPEN_EDIT: 'edit' },
@@ -23,42 +23,7 @@ export const editableInputMachine = Machine({
           ],
         },
         SUBMIT: 'view',
-        CLOSE_EDIT: {
-          target: 'view',
-          actions: [
-            assign({
-              inputValue: (_context, event) => {
-                return event.value;
-              },
-            }),
-          ],
-        },
-        ERROR: 'error',
-      },
-    },
-    error: {
-      on: {
-        EDITING: {
-          actions: [
-            assign({
-              inputValue: (_context, event) => {
-                return event.value;
-              },
-            }),
-          ],
-        },
-        SUBMIT: 'view',
-        CLOSE_EDIT: {
-          target: 'view',
-          actions: [
-            assign({
-              inputValue: (_context, event) => {
-                return event.value;
-              },
-            }),
-          ],
-        },
-        ERROR: 'error',
+        CLOSE_EDIT: 'view',
       },
     },
   },

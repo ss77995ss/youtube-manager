@@ -3,7 +3,6 @@ import {
   Box,
   Button,
   Input,
-  Text,
   Flex,
   Modal,
   ModalOverlay,
@@ -19,7 +18,9 @@ import InputErrorMessage from '../common/InputErrorMessage';
 const AddCategoryForm = ({ categories, isOpen, onClose }) => {
   const { register, handleSubmit, errors } = useForm();
   const { addNewCategories, updateCategory } = useVideosCtx();
-  const validator = (value) => categories.includes((category) => category === value);
+  const validator = (value) => {
+    return !categories.includes(value);
+  };
 
   const onSubmit = ({ newCategory }) => addNewCategories(newCategory);
   const handleUpdateCategory = (newCategory, index) => updateCategory(newCategory, index);
@@ -46,11 +47,7 @@ const AddCategoryForm = ({ categories, isOpen, onClose }) => {
                 />
                 <Button type="submit">新增</Button>
               </Flex>
-              {errors.newCategory?.type === 'required' && (
-                <Text fontSize="xs" color="red.500">
-                  請填入影片種類名稱
-                </Text>
-              )}
+              {errors.newCategory?.type === 'required' && <InputErrorMessage message="請填入影片種類名稱" />}
               {errors.newCategory?.type === 'validate' && <InputErrorMessage message="影片種類名稱不可以重複" />}
             </form>
             {categories &&

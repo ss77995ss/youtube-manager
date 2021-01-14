@@ -36,7 +36,6 @@ export const videosMachine = Machine({
       actions: [
         assign({
           categories: (context, event) => {
-            debugger;
             return update(event.index, event.value, context.categories);
           },
         }),
