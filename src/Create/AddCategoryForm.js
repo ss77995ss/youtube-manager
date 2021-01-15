@@ -17,13 +17,14 @@ import InputErrorMessage from '../common/InputErrorMessage';
 
 const AddCategoryForm = ({ categories, isOpen, onClose }) => {
   const { register, handleSubmit, errors } = useForm();
-  const { addNewCategories, updateCategory } = useVideosCtx();
+  const { addNewCategories, deleteCategory, updateCategory } = useVideosCtx();
   const validator = (value) => {
     return !categories.includes(value);
   };
 
   const onSubmit = ({ newCategory }) => addNewCategories(newCategory);
   const handleUpdateCategory = (newCategory, index) => updateCategory(newCategory, index);
+  const handleDeleteCategory = (index) => deleteCategory(index);
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
@@ -57,6 +58,7 @@ const AddCategoryForm = ({ categories, isOpen, onClose }) => {
                     index={index}
                     initialValue={category}
                     onEdit={handleUpdateCategory}
+                    onDelete={handleDeleteCategory}
                     validator={validator}
                     errorMessage="影片種類名稱不可以重複"
                   />
