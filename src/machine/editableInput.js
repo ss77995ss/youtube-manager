@@ -3,10 +3,6 @@ import { Machine, assign } from 'xstate';
 export const editableInputMachine = Machine({
   id: 'editableInput',
   initial: 'view',
-  // context: {
-  //   inputValue: '',
-  //   errorMessage: '',
-  // },
   states: {
     view: {
       on: { OPEN_EDIT: 'edit' },

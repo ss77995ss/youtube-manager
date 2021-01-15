@@ -93,7 +93,13 @@ const Create = () => {
       <Heading>新增影片</Heading>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Flex flexWrap={['wrap', 'wrap', 'nowrap', 'nowrap']}>
-          <Box border="2px solid black" w={`calc(${opts.width}px + 4px)`} h={`calc(${opts.height}px + 4px)`} mx="auto">
+          <Box
+            mt={2}
+            border="2px solid black"
+            w={`calc(${opts.width}px + 4px)`}
+            h={`calc(${opts.height}px + 4px)`}
+            mx="auto"
+          >
             <YouTube videoId={videoId} opts={opts} onReady={handleReady} onPlay={handlePlay} onError={handleError} />
           </Box>
           <Box
@@ -117,7 +123,7 @@ const Create = () => {
               <FormControl>
                 <Flex>
                   <FormLabel htmlFor="category">影片種類</FormLabel>
-                  <Button size="xs" onClick={onOpen}>
+                  <Button size="xs" fontSize={{ base: '0.65rem' }} onClick={onOpen}>
                     管理影片種類
                   </Button>
                   <AddCategoryForm categories={categories} isOpen={isOpen} onClose={onClose} />
@@ -139,22 +145,19 @@ const Create = () => {
               </FormLabel>
               <Textarea name="description" placeholder="輸入影片敘述" ref={register} />
             </FormControl>
-            <Button
-              mr={2}
-              value="timestamp"
-              onClick={handleSwitchAddType}
-              disabled={!currentVideoUrl || videoError || !video}
-            >
-              新增時間軸
-            </Button>
-            {/* <Button value="category" onClick={handleSwitchAddType}>
-              新增類別
-            </Button> */}
-            <Button type="submit" disabled={!currentVideoUrl || videoError || !video}>
-              送出資料
-            </Button>
           </Box>
         </Flex>
+        <Button
+          mr={2}
+          value="timestamp"
+          onClick={handleSwitchAddType}
+          disabled={!currentVideoUrl || videoError || !video}
+        >
+          新增時間軸
+        </Button>
+        <Button type="submit" disabled={!currentVideoUrl || videoError || !video}>
+          送出資料
+        </Button>
       </form>
       <Box>{renderForm(addType, setAddType, setTimestampList)}</Box>
       {timestampList && (

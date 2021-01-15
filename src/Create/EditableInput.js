@@ -1,4 +1,4 @@
-import { Box, Flex, Input, Text, IconButton } from '@chakra-ui/react';
+import { Flex, Input, Text, IconButton } from '@chakra-ui/react';
 import { CheckIcon, CloseIcon, EditIcon } from '@chakra-ui/icons';
 import { useForm } from 'react-hook-form';
 import { useMachine } from '@xstate/react';
@@ -15,34 +15,30 @@ const EditableInput = ({ index, initialValue, onEdit, validator, errorMessage })
     send('SUBMIT');
   };
 
-  return (
-    <Flex>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        {state.value === 'view' ? (
-          <Text>{initialValue}</Text>
-        ) : (
-          <Box>
-            <Input
-              ref={register({
-                required: true,
-                validate: validator,
-              })}
-              name="edit"
-            />
-            {errors.edit?.type === 'required' && <InputErrorMessage message="請填入影片種類名稱" />}
-            {errors.edit?.type === 'validate' && <InputErrorMessage message="影片種類名稱不可以重複" />}
-          </Box>
-        )}
-        {state.value === 'view' ? (
-          <IconButton size="sm" icon={<EditIcon />} onClick={handleOpen} />
-        ) : (
-          <Flex>
-            <IconButton type="submit" size="sm" icon={<CheckIcon />} onClick={handleSubmit} />
-            <IconButton type="button" size="sm" icon={<CloseIcon />} onClick={handleClose} />
-          </Flex>
-        )}
-      </form>
+  return state.value === 'view' ? (
+    <Flex mb={2} height="2.5rem" justify="space-between" align="center">
+      <Text>{initialValue}</Text>
+      <IconButton size="sm" icon={<EditIcon />} onClick={handleOpen} />
     </Flex>
+  ) : (
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <Flex height="2.5rem" justify="space-between" align="center">
+        <Input
+          mr={2}
+          ref={register({
+            required: true,
+            validate: validator,
+          })}
+          name="edit"
+        />
+        <Flex>
+          <IconButton mr={1} type="submit" size="sm" icon={<CheckIcon />} onClick={handleSubmit} />
+          <IconButton type="button" size="sm" icon={<CloseIcon />} onClick={handleClose} />
+        </Flex>
+      </Flex>
+      {errors.edit?.type === 'required' && <InputErrorMessage message="請填入影片種類名稱" />}
+      {errors.edit?.type === 'validate' && <InputErrorMessage message={errorMessage} />}
+    </form>
   );
 };
 
