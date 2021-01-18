@@ -1,9 +1,14 @@
-import { Box, Text, List, ListItem } from '@chakra-ui/react';
+import { useState } from 'react';
+import { Box, Input, Text, List, ListItem } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
 import { useVideosCtx } from '../hooks/useVideos';
 
 const Sidebar = () => {
   const { videos } = useVideosCtx();
+  const [searchKeyword, setSearchKeyword] = useState('');
+  const resolvedVideos = videos.filter(({ title }) => title.toLowerCase().includes(searchKeyword.toLowerCase()));
+
+  const handleKeywordChange = (event) => setSearchKeyword(event.target.value);
 
   return (
     <Box
@@ -14,9 +19,10 @@ const Sidebar = () => {
       p={3}
       as="aside"
     >
-      {videos.length > 0 ? (
+      <Input mb={2} value={searchKeyword} placeholder="搜尋影片" onChange={handleKeywordChange} />
+      {resolvedVideos.length > 0 ? (
         <List>
-          {videos.map((video, index) => (
+          {resolvedVideos.map((video, index) => (
             <Link to={`/show/${video.id}`}>
               <ListItem key={`sidebar-item-${index}`} cursor="pointer" _hover={{ bg: 'gray.300' }}>
                 {video.title}
@@ -25,7 +31,7 @@ const Sidebar = () => {
           ))}
         </List>
       ) : (
-        <Text>尚無影片</Text>
+        <Text>查無影片</Text>
       )}
     </Box>
   );
