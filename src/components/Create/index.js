@@ -19,8 +19,8 @@ import { useHistory } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { v1 as uuidv1 } from 'uuid';
 import { remove } from 'ramda';
-import { useVideosCtx } from '../hooks/useVideos';
-import useYoutube from '../hooks/useYouTube';
+import { useVideosCtx } from '../../hooks/useVideos';
+import useYoutube from '../../hooks/useYouTube';
 import AddCategoryForm from './AddCategoryForm';
 import AddTimestampForm from './AddTimestampForm';
 
@@ -54,7 +54,7 @@ const renderForm = (addType, setAddType, setTimestampList) => {
   }
 };
 
-const Create = () => {
+function Create() {
   const history = useHistory();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { categories, addNewVideo } = useVideosCtx();
@@ -174,6 +174,6 @@ const Create = () => {
       )}
     </Box>
   );
-};
+}
 
 export default Create;

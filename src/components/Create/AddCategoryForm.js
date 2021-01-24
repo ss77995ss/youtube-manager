@@ -11,11 +11,11 @@ import {
   ModalBody,
   ModalCloseButton,
 } from '@chakra-ui/react';
-import { useVideosCtx } from '../hooks/useVideos';
+import { useVideosCtx } from '../../hooks/useVideos';
 import EditableInput from './EditableInput';
-import InputErrorMessage from '../common/InputErrorMessage';
+import InputErrorMessage from '../../common/InputErrorMessage';
 
-const AddCategoryForm = ({ categories, isOpen, onClose }) => {
+function AddCategoryForm({ categories, isOpen, onClose }) {
   const { register, handleSubmit, errors } = useForm();
   const { addNewCategories, deleteCategory, updateCategory } = useVideosCtx();
   const validator = (value) => {
@@ -70,6 +70,6 @@ const AddCategoryForm = ({ categories, isOpen, onClose }) => {
       </ModalContent>
     </Modal>
   );
-};
+}
 
 export default AddCategoryForm;
