@@ -2,7 +2,7 @@ import { Box, Flex, Text, Input, Select, FormControl, FormLabel } from '@chakra-
 
 const FormItem = ({ children }) => <FormControl mr={2}>{children}</FormControl>;
 
-const TimeSelector = ({ register }) => {
+function TimeSelector({ register }) {
   return (
     <>
       <Box mr={2}>
@@ -49,6 +49,6 @@ const TimeSelector = ({ register }) => {
       </Box>
     </>
   );
-};
+}
 
 export default TimeSelector;

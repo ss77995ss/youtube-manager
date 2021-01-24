@@ -2,7 +2,7 @@ import { useForm } from 'react-hook-form';
 import { Box, Flex, Heading, Button } from '@chakra-ui/react';
 import TimeSelector from './TimeSelector';
 
-const AddTimestampForm = ({ setAddType, setTimestampList }) => {
+function AddTimestampForm({ setAddType, setTimestampList }) {
   const handleCancel = () => setAddType('');
   const { register, handleSubmit } = useForm();
 
@@ -29,6 +29,6 @@ const AddTimestampForm = ({ setAddType, setTimestampList }) => {
       </Box>
     </form>
   );
-};
+}
 
 export default AddTimestampForm;

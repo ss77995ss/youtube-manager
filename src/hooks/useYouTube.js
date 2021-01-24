@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-const useYoutube = () => {
+function useYoutube() {
   const [video, setVideo] = useState('pend');
   const [videoError, setVideoError] = useState(false);
 
@@ -13,6 +13,6 @@ const useYoutube = () => {
   const handleError = () => setVideoError(true);
 
   return { video, videoError, handleSetVideoTime, handleReady, handlePlay, handleError };
-};
+}
 
 export default useYoutube;

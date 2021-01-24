@@ -1,9 +1,9 @@
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import { ChakraProvider, Box, Flex, Heading } from '@chakra-ui/react';
 import { VideosProvider } from './hooks/useVideos';
-import Sidebar from './Sidebar';
-import Create from './Create';
-import Show from './Show';
+import Sidebar from './components/Sidebar';
+import Create from './components/Create';
+import Show from './components/Show';
 
 function App() {
   return (

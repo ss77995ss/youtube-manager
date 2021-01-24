@@ -1,9 +1,9 @@
 import { Box, Input, Text, List, ListItem } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
-import useSidebar from '../hooks/useSidebar';
+import useSidebar from '../../hooks/useSidebar';
 import SearchSelector from './SearchSelector';
 
-const Sidebar = () => {
+function Sidebar() {
   const {
     searchType,
     searchKeyword,
@@ -49,6 +49,6 @@ const Sidebar = () => {
       )}
     </Box>
   );
-};
+}
 
 export default Sidebar;

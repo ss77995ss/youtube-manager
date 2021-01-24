@@ -1,8 +1,8 @@
 import { Box, Heading, Flex, Text, Tag, TagLabel } from '@chakra-ui/react';
 import YouTube from 'react-youtube';
 import { useParams } from 'react-router-dom';
-import { useVideosCtx } from '../hooks/useVideos';
-import useYouTube from '../hooks/useYouTube';
+import { useVideosCtx } from '../../hooks/useVideos';
+import useYouTube from '../../hooks/useYouTube';
 
 const opts = {
   width: '348',
@@ -13,7 +13,7 @@ const opts = {
   },
 };
 
-const Show = () => {
+function Show() {
   const { id } = useParams();
   const { videos } = useVideosCtx();
   const selectedVideo = videos.find((video) => video.id === id);
@@ -56,6 +56,6 @@ const Show = () => {
       )}
     </Box>
   );
-};
+}
 
 export default Show;

@@ -10,7 +10,7 @@ const byCategory = groupBy((video) => {
   return video.category || lastCategoriesKey;
 });
 
-const useSidebar = () => {
+function useSidebar() {
   const { videos } = useVideosCtx();
   const [state, send] = useMachine(
     searchVideosMachine.withContext({ ...searchVideosMachine.context, videos, resolvedVideos: videos }),
@@ -30,6 +30,6 @@ const useSidebar = () => {
     handleKeywordChange,
     handleToggleSearchType,
   };
-};
+}
 
 export default useSidebar;

@@ -44,7 +44,7 @@ const persistedVideosMachine = videosMachine.withConfig(
 
 const VideosContext = createContext([]);
 
-const VideosProvider = ({ children }) => {
+function VideosProvider({ children }) {
   const [state, send] = useMachine(persistedVideosMachine);
   const addNewVideo = (newVideo) => send({ type: 'NEW_VIDEO', value: newVideo });
   const addNewCategories = (newCategory) => send({ type: 'NEW_CATEGORY', value: newCategory });
@@ -60,9 +60,9 @@ const VideosProvider = ({ children }) => {
   };
 
   return <VideosContext.Provider value={context}>{children}</VideosContext.Provider>;
-};
+}
 
-const useVideosCtx = () => {
+function useVideosCtx() {
   const context = useContext(VideosContext);
 
   if (!context) {
@@ -70,6 +70,6 @@ const useVideosCtx = () => {
   }
 
   return context;
-};
+}
 
 export { VideosProvider, useVideosCtx };
