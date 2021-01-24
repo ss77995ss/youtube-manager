@@ -3,7 +3,7 @@ import { Machine, assign } from 'xstate';
 export const searchVideosMachine = Machine(
   {
     id: 'searchSelectorMachine',
-    initial: 'categories',
+    initial: 'videos',
     context: {
       videos: [],
       resolvedVideos: [],
