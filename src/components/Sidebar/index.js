@@ -4,14 +4,7 @@ import useSidebar from '../../hooks/useSidebar';
 import SearchSelector from './SearchSelector';
 
 function Sidebar() {
-  const {
-    searchType,
-    searchKeyword,
-    groupByVideos,
-    lastCategoriesKey,
-    handleKeywordChange,
-    handleToggleSearchType,
-  } = useSidebar();
+  const { searchType, groupByVideos, lastCategoriesKey, handleKeywordChange, handleToggleSearchType } = useSidebar();
 
   return (
     <Box
@@ -23,7 +16,7 @@ function Sidebar() {
       as="aside"
     >
       <SearchSelector value={searchType} onChange={handleToggleSearchType} />
-      <Input mb={2} value={searchKeyword} placeholder="搜尋影片" onChange={handleKeywordChange} />
+      <Input mb={2} placeholder="搜尋影片" onChange={handleKeywordChange} />
       {Object.keys(groupByVideos).length > 0 && (
         <List>
           {Object.keys(groupByVideos).map((key, index) => (

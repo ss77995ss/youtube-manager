@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 import { useMachine } from '@xstate/react';
-import { searchVideosMachine } from '../machine/searchVideos';
+import { searchTypeSelectorMachine } from '../machine/searchTypeSelector';
 import { useVideosCtx } from '../hooks/useVideos';
 import { groupBy } from 'ramda';
 import { v1 as uuidv1 } from 'uuid';
@@ -11,15 +11,24 @@ const byCategory = groupBy((video) => {
 });
 
 function useSidebar() {
-  const { videos } = useVideosCtx();
-  const [state, send] = useMachine(
-    searchVideosMachine.withContext({ ...searchVideosMachine.context, videos, resolvedVideos: videos }),
-  );
+  const { resolvedVideos, filterByKeyword, filterByCategory } = useVideosCtx();
+  const [state, send] = useMachine(searchTypeSelectorMachine);
   const groupByVideos = useMemo(() => {
-    return byCategory(state.context.resolvedVideos);
-  }, [state.context.resolvedVideos]);
+    return byCategory(resolvedVideos);
+  }, [resolvedVideos]);
 
-  const handleKeywordChange = (event) => send('SEARCHING', { searchKeyword: event.target.value });
+  const handleKeywordChange = (event) => {
+    switch (state.value) {
+      case 'videos':
+        filterByKeyword(event.target.value);
+        break;
+      case 'categories':
+        filterByCategory(event.target.value);
+        break;
+      default:
+        throw new Error('Invalid state');
+    }
+  };
   const handleToggleSearchType = () => send('CHANGE_SEARCH_TYPE');
 
   return {
