@@ -1,12 +1,11 @@
-import { Box, Heading, Flex, Text, Tag, TagLabel } from '@chakra-ui/react';
+import { Box, Stack, Heading, Flex, Text, Tag, TagLabel } from '@chakra-ui/react';
 import YouTube from 'react-youtube';
 import { useParams } from 'react-router-dom';
 import { useVideosCtx } from '../../hooks/useVideos';
 import useYouTube from '../../hooks/useYouTube';
 
 const opts = {
-  width: '348',
-  height: '261',
+  width: '100%',
   playerVars: {
     // https://developers.google.com/youtube/player_parameters
     autoplay: 1,
@@ -21,28 +20,32 @@ function Show() {
   const { handleSetVideoTime, handleReady } = useYouTube();
 
   return (
-    <Box>
-      <Heading>{title}</Heading>
-      <Flex flexWrap={['wrap', 'wrap', 'nowrap', 'nowrap']}>
-        <Box border="2px solid black" w={`calc(${opts.width}px + 4px)`} h={`calc(${opts.height}px + 4px)`} mx="auto">
-          <YouTube videoId={videoId} opts={opts} onReady={handleReady} />
-        </Box>
+    <Stack>
+      <Flex flexWrap={{ base: 'wrap', md: 'wrap', lg: 'nowrap' }}>
         <Box
-          mx={4}
-          width={['100%', '100%', `calc(100% - ${opts.width}px - 4px)`, `calc(100% - ${opts.width}px - 4px)`]}
-          textAlign="left"
+          mx={{ base: 'auto', lg: 2 }}
+          border="2px solid black"
+          w={{ base: 324, sm: 644, lg: 484, xl: 724 }}
+          h={{ base: 184, sm: 364, lg: 274, xl: 409 }}
         >
+          <YouTube className="youtube-player" videoId={videoId} opts={opts} onReady={handleReady} />
+        </Box>
+        <Stack textAlign="left" width={{ base: '100%', lg: `calc(100% - 484px)`, xl: 'calc(100% - 724px)' }}>
+          <Heading as="h4" size="sm">
+            影片標題
+          </Heading>
+          <Text>{title}</Text>
           <Heading as="h4" size="sm">
             影片敘述
           </Heading>
           <Text>{description || '無敘述'}</Text>
-        </Box>
+        </Stack>
       </Flex>
-      {timestampList && (
-        <Box textAlign="left">
-          <Heading as="h4" size="sm">
-            時間軸
-          </Heading>
+      <Stack textAlign="left">
+        <Heading as="h4" size="sm">
+          時間軸
+        </Heading>
+        {timestampList.length > 0 && (
           <Flex flexWrap="wrap">
             {timestampList.map(({ title, hour, minute, second }, index) => (
               <Tag mr={2} mb={3} key={`${title}-${index}`}>
@@ -52,9 +55,9 @@ function Show() {
               </Tag>
             ))}
           </Flex>
-        </Box>
-      )}
-    </Box>
+        )}
+      </Stack>
+    </Stack>
   );
 }
 
