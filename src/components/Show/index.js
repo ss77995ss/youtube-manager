@@ -22,13 +22,10 @@ function Show() {
   return (
     <Stack>
       <Flex flexWrap={{ base: 'wrap', md: 'wrap', lg: 'nowrap' }}>
-        <Box
-          mx={{ base: 'auto', lg: 2 }}
-          border="2px solid black"
-          w={{ base: 324, sm: 644, lg: 484, xl: 724 }}
-          h={{ base: 184, sm: 364, lg: 274, xl: 409 }}
-        >
-          <YouTube className="youtube-player" videoId={videoId} opts={opts} onReady={handleReady} />
+        <Box mx={{ base: 'auto', lg: 2 }} w={{ base: 324, sm: 644, lg: 484, xl: 724 }}>
+          <Box position="relative" pt="56.25%" border="2px solid black" w="100%">
+            <YouTube className="youtube-player" videoId={videoId} opts={opts} onReady={handleReady} />
+          </Box>
         </Box>
         <Stack textAlign="left" width={{ base: '100%', lg: `calc(100% - 484px)`, xl: 'calc(100% - 724px)' }}>
           <Heading as="h4" size="sm">

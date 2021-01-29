@@ -11,23 +11,7 @@ code {
 }
 
 .youtube-player {
-  height: 180px;
-}
-
-@media screen and (min-width: 30em) {
-  .youtube-player {
-    height: 360px;
-  }
-}
-
-@media screen and (min-width: 62em) {
-  .youtube-player {
-    height: 270px;
-  }
-}
-
-@media screen and (min-width: 80em) {
-  .youtube-player {
-    height: 405px;
-  }
+  position: absolute;
+  top: 0;
+  height: 100%;
 }
