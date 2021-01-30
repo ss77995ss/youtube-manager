@@ -3,6 +3,7 @@ import YouTube from 'react-youtube';
 import { useParams } from 'react-router-dom';
 import { useVideosCtx } from '../../hooks/useVideos';
 import useYouTube from '../../hooks/useYouTube';
+import EditButtons from './EditButtons';
 
 const opts = {
   width: '100%',
@@ -15,8 +16,8 @@ const opts = {
 function Show() {
   const { id } = useParams();
   const { videos } = useVideosCtx();
-  const selectedVideo = videos.find((video) => video.id === id);
-  const { videoId, title, description, timestampList } = selectedVideo;
+  const video = videos.find((video) => video.id === id);
+  const { videoId, title, description, timestampList } = video;
   const { handleSetVideoTime, handleReady } = useYouTube();
 
   return (
@@ -28,6 +29,7 @@ function Show() {
           </Box>
         </Box>
         <Stack textAlign="left" width={{ base: '100%', lg: `calc(100% - 484px)`, xl: 'calc(100% - 724px)' }}>
+          <EditButtons video={video} />
           <Heading as="h4" size="sm">
             影片標題
           </Heading>

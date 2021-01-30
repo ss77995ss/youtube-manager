@@ -13,7 +13,7 @@ import {
 } from '@chakra-ui/react';
 import { useVideosCtx } from '../../hooks/useVideos';
 import EditableInput from './EditableInput';
-import InputErrorMessage from '../../common/InputErrorMessage';
+import InputErrorMessage from '../common/InputErrorMessage';
 
 function AddCategoryForm({ categories, isOpen, onClose }) {
   const { register, handleSubmit, errors } = useForm();

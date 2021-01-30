@@ -3,7 +3,7 @@ import { CheckIcon, CloseIcon, DeleteIcon, EditIcon } from '@chakra-ui/icons';
 import { useForm } from 'react-hook-form';
 import { useMachine } from '@xstate/react';
 import { editableInputMachine } from '../../machine/editableInput';
-import InputErrorMessage from '../../common/InputErrorMessage';
+import InputErrorMessage from '../common/InputErrorMessage';
 
 function EditableInput({ index, initialValue, onEdit, onDelete, validator, errorMessage }) {
   const { register, handleSubmit, errors } = useForm({ defaultValues: { edit: initialValue } });

@@ -12,6 +12,7 @@ function VideosProvider({ children }) {
   const deleteCategory = (index) => send({ type: 'DELETE_CATEGORY', index });
   const filterByKeyword = (searchKeyword) => send({ type: 'FILTER_VIDEOS_BY_KEYWORD', searchKeyword });
   const filterByCategory = (searchCategory) => send({ type: 'FILTER_VIDEOS_BY_CATEGORY', searchCategory });
+  const deleteVideo = (id) => send({ type: 'DELETE_VIDEO', id });
 
   const context = {
     ...state.context,
@@ -21,6 +22,7 @@ function VideosProvider({ children }) {
     deleteCategory,
     filterByKeyword,
     filterByCategory,
+    deleteVideo,
   };
 
   return <VideosContext.Provider value={context}>{children}</VideosContext.Provider>;
