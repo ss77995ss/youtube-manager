@@ -61,6 +61,18 @@ export const videosMachine = Machine(
           'resetResolvedVideos',
         ],
       },
+      UPDATE_VIDEO: {
+        actions: [
+          assign({
+            videos: (context, event) => {
+              const videoIndex = findIndex(propEq('id', event.id))(context.videos);
+              return update(videoIndex, event.newVideo, context.videos);
+            },
+          }),
+          'persistVideos',
+          'resetResolvedVideos',
+        ],
+      },
       NEW_CATEGORY: {
         actions: [
           assign({

@@ -1,5 +1,5 @@
-import { ButtonGroup, Button } from '@chakra-ui/react';
-import { EditIcon } from '@chakra-ui/icons';
+import { ButtonGroup } from '@chakra-ui/react';
+import UpdateButton from './UpdateButton';
 import DeleteButton from './DeleteButton';
 
 function EditButtons({ video }) {
@@ -7,9 +7,7 @@ function EditButtons({ video }) {
 
   return (
     <ButtonGroup spacing={2}>
-      <Button leftIcon={<EditIcon />} colorScheme="blue">
-        編輯影片
-      </Button>
+      <UpdateButton video={video} />
       <DeleteButton id={id} />
     </ButtonGroup>
   );
