@@ -1,5 +1,5 @@
 import { Machine, assign } from 'xstate';
-import { remove, update } from 'ramda';
+import { remove, update, findIndex, propEq } from 'ramda';
 
 export const videosMachine = Machine(
   {
@@ -47,6 +47,30 @@ export const videosMachine = Machine(
               );
             },
           }),
+        ],
+      },
+      DELETE_VIDEO: {
+        actions: [
+          assign({
+            videos: (context, event) => {
+              const videoIndex = findIndex(propEq('id', event.id))(context.videos);
+              return remove(videoIndex, 1, context.videos);
+            },
+          }),
+          'persistVideos',
+          'resetResolvedVideos',
+        ],
+      },
+      UPDATE_VIDEO: {
+        actions: [
+          assign({
+            videos: (context, event) => {
+              const videoIndex = findIndex(propEq('id', event.id))(context.videos);
+              return update(videoIndex, event.newVideo, context.videos);
+            },
+          }),
+          'persistVideos',
+          'resetResolvedVideos',
         ],
       },
       NEW_CATEGORY: {

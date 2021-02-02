@@ -8,8 +8,8 @@ function Sidebar() {
 
   return (
     <Box
-      display={['none', 'none', 'none', 'block']}
-      width={280}
+      display={{ base: 'none', lg: 'block' }}
+      minWidth={280}
       height="100%"
       borderRight="1px solid #ccc"
       p={3}
