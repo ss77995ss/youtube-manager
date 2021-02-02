@@ -18,11 +18,11 @@ function useSidebar() {
   }, [resolvedVideos]);
 
   const handleKeywordChange = (event) => {
-    switch (state.value) {
-      case 'videos':
+    switch (true) {
+      case state.matches('videos'):
         filterByKeyword(event.target.value);
         break;
-      case 'categories':
+      case state.matches('categories'):
         filterByCategory(event.target.value);
         break;
       default:
