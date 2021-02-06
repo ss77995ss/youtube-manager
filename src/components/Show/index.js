@@ -1,8 +1,10 @@
-import { Box, Stack, Heading, Flex, Text, Tag, TagLabel } from '@chakra-ui/react';
+import { Box, Stack, Heading, Flex, Text } from '@chakra-ui/react';
 import YouTube from 'react-youtube';
 import { useParams } from 'react-router-dom';
 import { useVideosCtx } from '../../hooks/useVideos';
 import useYouTube from '../../hooks/useYouTube';
+import useTimestamps from '../../hooks/useTimestamps';
+import TimestampList from '../common/Timestamps';
 import EditButtons from './EditButtons';
 
 const opts = {
@@ -17,8 +19,9 @@ function Show() {
   const { id } = useParams();
   const { videos } = useVideosCtx();
   const video = videos.find((video) => video.id === id);
-  const { videoId, title, description, timestampList } = video;
-  const { handleSetVideoTime, handleReady } = useYouTube();
+  const { videoId, title, description, timestamps } = video;
+  const { handleReady } = useYouTube();
+  const timestampsState = useTimestamps(timestamps);
 
   return (
     <Stack>
@@ -40,22 +43,7 @@ function Show() {
           <Text>{description || '無敘述'}</Text>
         </Stack>
       </Flex>
-      <Stack textAlign="left">
-        <Heading as="h4" size="sm">
-          時間軸
-        </Heading>
-        {timestampList.length > 0 && (
-          <Flex flexWrap="wrap">
-            {timestampList.map(({ title, hour, minute, second }, index) => (
-              <Tag mr={2} mb={3} key={`${title}-${index}`}>
-                <TagLabel cursor="pointer" onClick={handleSetVideoTime(hour, minute, second)}>
-                  {`${title} ${`0${hour}`.slice(-2)}:${`0${minute}`.slice(-2)}:${`0${second}`.slice(-2)}`}
-                </TagLabel>
-              </Tag>
-            ))}
-          </Flex>
-        )}
-      </Stack>
+      <TimestampList {...timestampsState} />
     </Stack>
   );
 }
