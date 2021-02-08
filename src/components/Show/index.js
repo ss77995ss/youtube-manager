@@ -17,11 +17,21 @@ const opts = {
 
 function Show() {
   const { id } = useParams();
-  const { videos } = useVideosCtx();
+  const { videos, updateVideo } = useVideosCtx();
   const video = videos.find((video) => video.id === id);
   const { videoId, title, description, timestamps } = video;
   const { handleReady } = useYouTube();
   const timestampsState = useTimestamps(timestamps);
+
+  const handleTimestamp = () => {
+    if (timestampsState.matches('edit')) {
+      updateVideo(id, {
+        ...video,
+        timestamps: timestampsState.timestamps,
+      });
+    }
+    timestampsState.changeMode();
+  };
 
   return (
     <Stack>
@@ -43,7 +53,7 @@ function Show() {
           <Text>{description || '無敘述'}</Text>
         </Stack>
       </Flex>
-      <TimestampList {...timestampsState} />
+      <TimestampList {...timestampsState} handleChangeMode={handleTimestamp} />
     </Stack>
   );
 }
