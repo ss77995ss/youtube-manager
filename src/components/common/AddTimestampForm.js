@@ -1,5 +1,5 @@
 import { useForm } from 'react-hook-form';
-import { Box, Flex, Heading, Button } from '@chakra-ui/react';
+import { Box, Heading, Button, Input, FormControl, FormLabel, Stack } from '@chakra-ui/react';
 import TimeSelector from './TimeSelector';
 
 function AddTimestampForm({ addNewTimestamp }) {
@@ -16,15 +16,22 @@ function AddTimestampForm({ addNewTimestamp }) {
         <Heading as="h4" size="sm">
           新增時間軸
         </Heading>
-        <Flex mt={4} align="flex-end" flexWrap={['wrap', 'wrap', 'nowrap', 'nowrap']}>
+        <Stack direction="row" mt={4} align="flex-end" flexWrap={['wrap', 'wrap', 'nowrap', 'nowrap']}>
+          <FormControl>
+            <FormLabel htmlFor="title">名稱*</FormLabel>
+            <Input name="title" type="text" ref={register({ required: true })} />
+          </FormControl>
+          <FormControl>
+            <FormLabel htmlFor="description">敘述（非必填）</FormLabel>
+            <Input name="description" type="text" ref={register} />
+          </FormControl>
+        </Stack>
+        <Stack direction="row" align="flex-end">
           <TimeSelector register={register} />
-          <Button mt={[2, 2, 0, 0]} mr={2} w={['33%', '33%', '12.5%', '12.5%']}>
-            取消
-          </Button>
           <Button mt={[2, 2, 0, 0]} mr={2} type="submit" w={['33%', '33%', '15%', '12.5%']}>
             新增時間軸
           </Button>
-        </Flex>
+        </Stack>
       </Box>
     </form>
   );

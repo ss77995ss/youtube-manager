@@ -1,10 +1,10 @@
 import { Box, Flex, Heading, Stack, IconButton, Tag, TagLabel, TagCloseButton } from '@chakra-ui/react';
 import { EditIcon } from '@chakra-ui/icons';
-import useYoutube from '../../hooks/useYouTube';
+import { useYoutubeCtx } from '../../hooks/useYouTube';
 import AddTimestampForm from './AddTimestampForm';
 
 function Timestamps({ timestamps, matches, addNewTimestamp, handleChangeMode, handleDeleteTimeStamp }) {
-  const { handleSetVideoTime } = useYoutube();
+  const { handleSetVideoTime } = useYoutubeCtx();
 
   return (
     <Stack textAlign="left">

@@ -1,7 +1,9 @@
-import { useState } from 'react';
+import { useState, createContext, useContext } from 'react';
 
-function useYoutube() {
-  const [video, setVideo] = useState('pend');
+const YoutubeContext = createContext();
+
+function YoutubeProvider({ children }) {
+  const [video, setVideo] = useState(undefined);
   const [videoError, setVideoError] = useState(false);
 
   const handleSetVideoTime = (hour, minute, second) => () => {
@@ -12,7 +14,19 @@ function useYoutube() {
   const handlePlay = () => setVideoError(false);
   const handleError = () => setVideoError(true);
 
-  return { video, videoError, handleSetVideoTime, handleReady, handlePlay, handleError };
+  const context = { video, videoError, handleSetVideoTime, handleReady, handlePlay, handleError };
+
+  return <YoutubeContext.Provider value={context}>{children}</YoutubeContext.Provider>;
 }
 
-export default useYoutube;
+function useYoutubeCtx() {
+  const context = useContext(YoutubeContext);
+
+  if (!context) {
+    throw new Error('useVideosCtx should be in the provider');
+  }
+
+  return context;
+}
+
+export { YoutubeProvider, useYoutubeCtx };

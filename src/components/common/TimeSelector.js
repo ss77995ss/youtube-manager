@@ -1,53 +1,39 @@
-import { Box, Flex, Text, Input, Select, FormControl, FormLabel } from '@chakra-ui/react';
+import { Box, Stack, Text, Select, FormControl } from '@chakra-ui/react';
 
-const FormItem = ({ children }) => <FormControl mr={2}>{children}</FormControl>;
+const FormItem = ({ children }) => <FormControl w="5rem">{children}</FormControl>;
 
 function TimeSelector({ register }) {
   return (
-    <>
-      <Box mr={2}>
+    <Box>
+      <Text mr={3} mb={2} align="left" fontWeight={500}>
+        時間
+      </Text>
+      <Stack direction="row" align="center">
         <FormItem>
-          <FormLabel htmlFor="title">名稱*</FormLabel>
-          <Input name="title" type="text" ref={register({ required: true })} />
+          <Select ref={register} name="hour">
+            {[...Array(24).keys()].map((number) => (
+              <option value={number}>{`0${number}`.slice(-2)}</option>
+            ))}
+          </Select>
         </FormItem>
-      </Box>
-      <Box mr={2}>
+        <Text>：</Text>
+        <FormItem mx={4}>
+          <Select ref={register} name="minute">
+            {[...Array(60).keys()].map((number) => (
+              <option value={number}>{`0${number}`.slice(-2)}</option>
+            ))}
+          </Select>
+        </FormItem>
+        <Text>：</Text>
         <FormItem>
-          <FormLabel htmlFor="category">類別（非必填）</FormLabel>
-          <Input name="category" type="text" ref={register} />
+          <Select ref={register} name="second">
+            {[...Array(60).keys()].map((number) => (
+              <option value={number}>{`0${number}`.slice(-2)}</option>
+            ))}
+          </Select>
         </FormItem>
-      </Box>
-      <Box>
-        <Text mr={3} mb={2} align="left" fontWeight={500}>
-          時間
-        </Text>
-        <Flex align="center">
-          <FormItem>
-            <Select ref={register} name="hour">
-              {[...Array(23).keys()].map((number) => (
-                <option value={number}>{`0${number}`.slice(-2)}</option>
-              ))}
-            </Select>
-          </FormItem>
-          <Text mr={2}>：</Text>
-          <FormItem mx={4}>
-            <Select ref={register} name="minute">
-              {[...Array(59).keys()].map((number) => (
-                <option value={number}>{`0${number}`.slice(-2)}</option>
-              ))}
-            </Select>
-          </FormItem>
-          <Text mr={2}>：</Text>
-          <FormItem>
-            <Select ref={register} name="second">
-              {[...Array(59).keys()].map((number) => (
-                <option value={number}>{`0${number}`.slice(-2)}</option>
-              ))}
-            </Select>
-          </FormItem>
-        </Flex>
-      </Box>
-    </>
+      </Stack>
+    </Box>
   );
 }
 

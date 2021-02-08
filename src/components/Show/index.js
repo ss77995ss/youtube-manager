@@ -2,7 +2,7 @@ import { Box, Stack, Heading, Flex, Text } from '@chakra-ui/react';
 import YouTube from 'react-youtube';
 import { useParams } from 'react-router-dom';
 import { useVideosCtx } from '../../hooks/useVideos';
-import useYouTube from '../../hooks/useYouTube';
+import { useYoutubeCtx } from '../../hooks/useYouTube';
 import useTimestamps from '../../hooks/useTimestamps';
 import TimestampList from '../common/Timestamps';
 import EditButtons from './EditButtons';
@@ -20,7 +20,7 @@ function Show() {
   const { videos, updateVideo } = useVideosCtx();
   const video = videos.find((video) => video.id === id);
   const { videoId, title, description, timestamps } = video;
-  const { handleReady } = useYouTube();
+  const { video: ytVideo, handleReady } = useYoutubeCtx();
   const timestampsState = useTimestamps(timestamps);
 
   const handleTimestamp = () => {
@@ -53,7 +53,7 @@ function Show() {
           <Text>{description || '無敘述'}</Text>
         </Stack>
       </Flex>
-      <TimestampList {...timestampsState} handleChangeMode={handleTimestamp} />
+      <TimestampList video={ytVideo} {...timestampsState} handleChangeMode={handleTimestamp} />
     </Stack>
   );
 }

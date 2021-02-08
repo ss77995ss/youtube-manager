@@ -15,7 +15,7 @@ import { useHistory } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { v1 as uuidv1 } from 'uuid';
 import { useVideosCtx } from '../../hooks/useVideos';
-import useYoutube from '../../hooks/useYouTube';
+import { useYoutubeCtx } from '../../hooks/useYouTube';
 import useTimestamps from '../../hooks/useTimestamps';
 import TimestampList from '../common/Timestamps';
 import AddCategoryForm from './AddCategoryForm';
@@ -44,7 +44,7 @@ function Create() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { categories, addNewVideo } = useVideosCtx();
   const { register, handleSubmit, watch, errors } = useForm();
-  const { video, videoError, handleReady, handlePlay, handleError } = useYoutube();
+  const { video, videoError, handleReady, handlePlay, handleError } = useYoutubeCtx();
   const timestampsState = useTimestamps([]);
   const currentVideoUrl = watch('url');
   const videoId = currentVideoUrl ? getVideoId(currentVideoUrl) : '';
@@ -124,7 +124,7 @@ function Create() {
           送出資料
         </Button>
       </form>
-      <TimestampList {...timestampsState} />
+      <TimestampList video={video} {...timestampsState} />
     </Box>
   );
 }
