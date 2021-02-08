@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import { ChakraProvider, Box, Flex, Heading } from '@chakra-ui/react';
 import { VideosProvider } from './hooks/useVideos';
+import { YoutubeProvider } from './hooks/useYouTube';
 import Sidebar from './components/Sidebar';
 import Create from './components/Create';
 import Show from './components/Show';
@@ -24,10 +25,14 @@ function App() {
                     <Link to="/create">新增影片</Link>
                   </Route>
                   <Route path="/create">
-                    <Create />
+                    <YoutubeProvider>
+                      <Create />
+                    </YoutubeProvider>
                   </Route>
                   <Route path="/show/:id">
-                    <Show />
+                    <YoutubeProvider>
+                      <Show />
+                    </YoutubeProvider>
                   </Route>
                 </Switch>
               </Box>

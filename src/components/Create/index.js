@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import {
   Box,
   Flex,
@@ -9,20 +8,17 @@ import {
   Button,
   Select,
   Textarea,
-  Tag,
-  TagLabel,
-  TagCloseButton,
   useDisclosure,
 } from '@chakra-ui/react';
 import YouTube from 'react-youtube';
 import { useHistory } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { v1 as uuidv1 } from 'uuid';
-import { remove } from 'ramda';
 import { useVideosCtx } from '../../hooks/useVideos';
-import useYoutube from '../../hooks/useYouTube';
+import { useYoutubeCtx } from '../../hooks/useYouTube';
+import useTimestamps from '../../hooks/useTimestamps';
+import TimestampList from '../common/Timestamps';
 import AddCategoryForm from './AddCategoryForm';
-import AddTimestampForm from './AddTimestampForm';
 
 const getVideoId = (url) => {
   if (/^https:\/\/(youtu\.be)/.test(url)) {
@@ -43,25 +39,13 @@ const opts = {
   },
 };
 
-const renderForm = (addType, setAddType, setTimestampList) => {
-  switch (addType) {
-    case 'timestamp':
-      return <AddTimestampForm setAddType={setAddType} setTimestampList={setTimestampList} />;
-    // case 'category':
-    //   return <AddCategoryForm />;
-    default:
-      return null;
-  }
-};
-
 function Create() {
   const history = useHistory();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { categories, addNewVideo } = useVideosCtx();
   const { register, handleSubmit, watch, errors } = useForm();
-  const { video, videoError, handleSetVideoTime, handleReady, handlePlay, handleError } = useYoutube();
-  const [addType, setAddType] = useState('');
-  const [timestampList, setTimestampList] = useState([]);
+  const { video, videoError, handleReady, handlePlay, handleError } = useYoutubeCtx();
+  const timestampsState = useTimestamps([]);
   const currentVideoUrl = watch('url');
   const videoId = currentVideoUrl ? getVideoId(currentVideoUrl) : '';
 
@@ -70,23 +54,12 @@ function Create() {
       ...data,
       id: uuidv1(),
       videoId,
-      timestampList,
+      timestamps: timestampsState.timestamps,
     };
 
     addNewVideo(newVideo);
     history.push('/');
   };
-
-  const handleSwitchAddType = (event) => {
-    const clickType = event.target.value;
-    if (clickType === addType) {
-      setAddType('');
-    } else {
-      setAddType(clickType);
-    }
-  };
-
-  const handleDeleteTimeStamp = (index) => () => setTimestampList((prev) => remove(index, 1, prev));
 
   return (
     <Box>
@@ -147,31 +120,11 @@ function Create() {
             </FormControl>
           </Box>
         </Flex>
-        <Button
-          mr={2}
-          value="timestamp"
-          onClick={handleSwitchAddType}
-          disabled={!currentVideoUrl || videoError || !video}
-        >
-          新增時間軸
-        </Button>
         <Button type="submit" disabled={!currentVideoUrl || videoError || !video}>
           送出資料
         </Button>
       </form>
-      <Box>{renderForm(addType, setAddType, setTimestampList)}</Box>
-      {timestampList && (
-        <Flex flexWrap="wrap">
-          {timestampList.map(({ title, hour, minute, second }, index) => (
-            <Tag mr={2} mb={3} key={`${title}-${index}`}>
-              <TagLabel cursor="pointer" onClick={handleSetVideoTime(hour, minute, second)}>
-                {`${title} ${`0${hour}`.slice(-2)}:${`0${minute}`.slice(-2)}:${`0${second}`.slice(-2)}`}
-              </TagLabel>
-              <TagCloseButton onClick={handleDeleteTimeStamp(index)} />
-            </Tag>
-          ))}
-        </Flex>
-      )}
+      <TimestampList video={video} {...timestampsState} />
     </Box>
   );
 }
