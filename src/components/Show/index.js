@@ -6,6 +6,7 @@ import { useYoutubeCtx } from '../../hooks/useYouTube';
 import useTimestamps from '../../hooks/useTimestamps';
 import TimestampList from '../common/Timestamps';
 import EditButtons from './EditButtons';
+import ShareButton from './ShareButton';
 
 const opts = {
   width: '100%',
@@ -45,6 +46,7 @@ function Show() {
           <EditButtons video={video} />
           <Heading as="h4" size="sm">
             影片標題
+            <ShareButton video={video} />
           </Heading>
           <Text>{title}</Text>
           <Heading as="h4" size="sm">

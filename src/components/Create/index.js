@@ -14,6 +14,8 @@ import YouTube from 'react-youtube';
 import { useHistory } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { v1 as uuidv1 } from 'uuid';
+import { decode } from 'js-base64';
+import useParams from '../../hooks/useParams';
 import { useVideosCtx } from '../../hooks/useVideos';
 import { useYoutubeCtx } from '../../hooks/useYouTube';
 import useTimestamps from '../../hooks/useTimestamps';
@@ -41,11 +43,18 @@ const opts = {
 
 function Create() {
   const history = useHistory();
+  const query = useParams();
+  const vh = query.get('vh');
+  const defaultVideo = vh ? JSON.parse(decode(query.get('vh'))) : {};
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { categories, addNewVideo } = useVideosCtx();
-  const { register, handleSubmit, watch, errors } = useForm();
+  const { register, handleSubmit, watch, errors } = useForm({
+    defaultValues: {
+      ...defaultVideo,
+    },
+  });
   const { video, videoError, handleReady, handlePlay, handleError } = useYoutubeCtx();
-  const timestampsState = useTimestamps([]);
+  const timestampsState = useTimestamps(defaultVideo.timestamps || []);
   const currentVideoUrl = watch('url');
   const videoId = currentVideoUrl ? getVideoId(currentVideoUrl) : '';
 
