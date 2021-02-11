@@ -17,12 +17,12 @@ import InputErrorMessage from '../common/InputErrorMessage';
 
 function AddCategoryForm({ categories, isOpen, onClose }) {
   const { register, handleSubmit, errors } = useForm();
-  const { addNewCategories, deleteCategory, updateCategory } = useVideosCtx();
+  const { addNewCategory, deleteCategory, updateCategory } = useVideosCtx();
   const validator = (value) => {
     return !categories.includes(value);
   };
 
-  const onSubmit = ({ newCategory }) => addNewCategories(newCategory);
+  const onSubmit = ({ newCategory }) => addNewCategory(newCategory);
   const handleUpdateCategory = (newCategory, index) => updateCategory(newCategory, index);
   const handleDeleteCategory = (index) => deleteCategory(index);
 

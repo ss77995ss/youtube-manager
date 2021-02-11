@@ -1,15 +1,14 @@
 import { createContext, useContext } from 'react';
 import { useMachine } from '@xstate/react';
+import useCategories from './useCatagories';
 import { videosMachine } from '../machine/videos';
 
 const VideosContext = createContext([]);
 
 function VideosProvider({ children }) {
   const [state, send] = useMachine(videosMachine);
+  const categoriesState = useCategories();
   const addNewVideo = (newVideo) => send({ type: 'NEW_VIDEO', value: newVideo });
-  const addNewCategories = (newCategory) => send({ type: 'NEW_CATEGORY', value: newCategory });
-  const updateCategory = (newCategory, index) => send({ type: 'UPDATE_CATEGORY', value: newCategory, index });
-  const deleteCategory = (index) => send({ type: 'DELETE_CATEGORY', index });
   const filterByKeyword = (searchKeyword) => send({ type: 'FILTER_VIDEOS_BY_KEYWORD', searchKeyword });
   const filterByCategory = (searchCategory) => send({ type: 'FILTER_VIDEOS_BY_CATEGORY', searchCategory });
   const deleteVideo = (id) => send({ type: 'DELETE_VIDEO', id });
@@ -17,10 +16,8 @@ function VideosProvider({ children }) {
 
   const context = {
     ...state.context,
+    ...categoriesState,
     addNewVideo,
-    addNewCategories,
-    updateCategory,
-    deleteCategory,
     filterByKeyword,
     filterByCategory,
     deleteVideo,
