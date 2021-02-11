@@ -5,8 +5,7 @@ import { useVideosCtx } from '../../hooks/useVideos';
 import { useYoutubeCtx } from '../../hooks/useYouTube';
 import useTimestamps from '../../hooks/useTimestamps';
 import TimestampList from '../common/Timestamps';
-import EditButtons from './EditButtons';
-import ShareButton from './ShareButton';
+import Buttons from './Buttons';
 
 const opts = {
   width: '100%',
@@ -38,15 +37,18 @@ function Show() {
     <Stack>
       <Flex flexWrap={{ base: 'wrap', md: 'wrap', lg: 'nowrap' }}>
         <Box mx={{ base: 'auto', lg: 2 }} w={{ base: 324, sm: 644, lg: 484, xl: 724 }}>
-          <Box position="relative" pt="56.25%" border="2px solid black" w="100%">
+          <Box position="relative" pt="56.25%" w="100%">
             <YouTube className="youtube-player" videoId={videoId} opts={opts} onReady={handleReady} />
           </Box>
         </Box>
-        <Stack textAlign="left" width={{ base: '100%', lg: `calc(100% - 484px)`, xl: 'calc(100% - 724px)' }}>
-          <EditButtons video={video} />
+        <Stack
+          mt={{ sm: 2, lg: 0 }}
+          textAlign="left"
+          width={{ base: '100%', lg: `calc(100% - 484px)`, xl: 'calc(100% - 724px)' }}
+        >
+          <Buttons video={video} />
           <Heading as="h4" size="sm">
             影片標題
-            <ShareButton video={video} />
           </Heading>
           <Text>{title}</Text>
           <Heading as="h4" size="sm">

@@ -1,4 +1,4 @@
-import { Button, useDisclosure } from '@chakra-ui/react';
+import { IconButton, useDisclosure } from '@chakra-ui/react';
 import { EditIcon } from '@chakra-ui/icons';
 import UpdateModal from './UpdateModal';
 
@@ -7,9 +7,7 @@ function UpdateButton({ video }) {
 
   return (
     <>
-      <Button leftIcon={<EditIcon />} colorScheme="blue" onClick={onOpen}>
-        編輯影片
-      </Button>
+      <IconButton icon={<EditIcon />} onClick={onOpen} />
       <UpdateModal key={JSON.stringify(video)} video={video} isOpen={isOpen} onClose={onClose} />
     </>
   );
