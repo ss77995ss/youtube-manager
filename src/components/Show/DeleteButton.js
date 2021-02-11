@@ -1,4 +1,4 @@
-import { Button, useDisclosure } from '@chakra-ui/react';
+import { IconButton, useDisclosure } from '@chakra-ui/react';
 import { DeleteIcon } from '@chakra-ui/icons';
 import { useHistory } from 'react-router-dom';
 import { useVideosCtx } from '../../hooks/useVideos';
@@ -16,9 +16,7 @@ function DeleteButton({ id }) {
 
   return (
     <>
-      <Button leftIcon={<DeleteIcon />} colorScheme="red" onClick={onOpen}>
-        刪除影片
-      </Button>
+      <IconButton icon={<DeleteIcon />} onClick={onOpen} />
       <ConfirmModal text="確定要取消此影片" isOpen={isOpen} onClose={onClose} onConfirm={handleDelete(id)} />
     </>
   );

@@ -4,6 +4,7 @@ import {
   ModalOverlay,
   ModalContent,
   ModalCloseButton,
+  ModalHeader,
   ModalBody,
   ModalFooter,
   Button,
@@ -40,8 +41,10 @@ function UpdateModal({ video, isOpen, onClose }) {
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
-      <ModalCloseButton />
       <ModalContent>
+        <ModalHeader>
+          <ModalCloseButton />
+        </ModalHeader>
         <form onSubmit={handleSubmit(onSubmit)}>
           <ModalBody>
             <FormControl pr={2}>

@@ -3,6 +3,7 @@ import {
   ModalOverlay,
   ModalContent,
   ModalCloseButton,
+  ModalHeader,
   ModalBody,
   ModalFooter,
   Button,
@@ -19,8 +20,10 @@ function ConfirmModal({ text, isOpen, onClose, onConfirm }) {
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
-      <ModalCloseButton />
       <ModalContent>
+        <ModalHeader>
+          <ModalCloseButton />
+        </ModalHeader>
         <ModalBody>
           <Text>{text}</Text>
         </ModalBody>
