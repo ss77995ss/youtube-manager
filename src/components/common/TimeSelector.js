@@ -13,7 +13,7 @@ function getPreciseTime(seconds) {
   };
 }
 
-const FormItem = ({ children }) => <FormControl w="5rem">{children}</FormControl>;
+const FormItem = ({ children }) => <FormControl w="33%">{children}</FormControl>;
 
 function TimeSelector({ register }) {
   const [{ hour, minute, second }, setTimestamp] = useState({
@@ -56,7 +56,7 @@ function TimeSelector({ register }) {
             ))}
           </Select>
         </FormItem>
-        <Text>：</Text>
+        <Text textAlign="center">：</Text>
         <FormItem mx={4}>
           <Select ref={register} name="minute" value={minute} onChange={handleChangeTimestamp}>
             {[...Array(60).keys()].map((number) => (
@@ -64,7 +64,7 @@ function TimeSelector({ register }) {
             ))}
           </Select>
         </FormItem>
-        <Text>：</Text>
+        <Text textAlign="center">：</Text>
         <FormItem>
           <Select ref={register} name="second" value={second} onChange={handleChangeTimestamp}>
             {[...Array(60).keys()].map((number) => (

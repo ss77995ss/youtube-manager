@@ -1,8 +1,8 @@
 import { useForm } from 'react-hook-form';
-import { Box, Heading, Button, Input, FormControl, FormLabel, Stack } from '@chakra-ui/react';
+import { Box, Heading, Button, Input, FormControl, FormLabel, ButtonGroup, Stack } from '@chakra-ui/react';
 import TimeSelector from './TimeSelector';
 
-function AddTimestampForm({ addNewTimestamp }) {
+function AddTimestampForm({ addNewTimestamp, handleChangeMode }) {
   const { register, handleSubmit } = useForm();
 
   const onSubmit = (newTimestamp) => {
@@ -12,11 +12,11 @@ function AddTimestampForm({ addNewTimestamp }) {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <Box my={4} border="1px solid" p={4}>
+      <Box my={2} border="1px solid" p={4}>
         <Heading as="h4" size="sm">
           新增時間軸
         </Heading>
-        <Stack direction="row" mt={4} align="flex-end" flexWrap={['wrap', 'wrap', 'nowrap', 'nowrap']}>
+        <Stack direction={['column', 'column', 'row', 'row']} mt={4}>
           <FormControl>
             <FormLabel htmlFor="title">名稱*</FormLabel>
             <Input name="title" type="text" ref={register({ required: true })} />
@@ -26,11 +26,16 @@ function AddTimestampForm({ addNewTimestamp }) {
             <Input name="description" type="text" ref={register} />
           </FormControl>
         </Stack>
-        <Stack direction="row" align="flex-end">
+        <Stack>
           <TimeSelector register={register} />
-          <Button mt={[2, 2, 0, 0]} mr={2} type="submit" w={['33%', '33%', '15%', '12.5%']}>
-            新增時間軸
-          </Button>
+          <ButtonGroup justifyContent="flex-end">
+            <Button type="submit" w={['50%', '50%', '30%', '25%']}>
+              確認
+            </Button>
+            <Button onClick={handleChangeMode} w={['50%', '50%', '30%', '25%']}>
+              取消
+            </Button>
+          </ButtonGroup>
         </Stack>
       </Box>
     </form>

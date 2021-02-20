@@ -35,17 +35,13 @@ function Show() {
 
   return (
     <Stack>
-      <Flex flexWrap={{ base: 'wrap', md: 'wrap', lg: 'nowrap' }}>
-        <Box mx={{ base: 'auto', lg: 2 }} w={{ base: 324, sm: 644, lg: 484, xl: 724 }}>
+      <Flex flexDirection={{ base: 'column', lg: 'row' }}>
+        <Box mr={{ base: 'auto', lg: 2 }} mb={2} w="100%">
           <Box position="relative" pt="56.25%" w="100%">
             <YouTube className="youtube-player" videoId={videoId} opts={opts} onReady={handleReady} />
           </Box>
         </Box>
-        <Stack
-          mt={{ sm: 2, lg: 0 }}
-          textAlign="left"
-          width={{ base: '100%', lg: `calc(100% - 484px)`, xl: 'calc(100% - 724px)' }}
-        >
+        <Stack mt={{ sm: 2, lg: 0 }} textAlign="left" w={{ base: '100%', lg: '420px' }} height="100%">
           <Buttons video={video} />
           <Heading as="h4" size="sm">
             影片標題

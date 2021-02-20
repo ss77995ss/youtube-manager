@@ -2,6 +2,7 @@ import {
   Box,
   Flex,
   Heading,
+  Stack,
   FormControl,
   FormLabel,
   Input,
@@ -33,8 +34,7 @@ const getVideoId = (url) => {
 };
 
 const opts = {
-  width: '348',
-  height: '261',
+  width: '100%',
   playerVars: {
     // https://developers.google.com/youtube/player_parameters
     autoplay: 1,
@@ -71,23 +71,26 @@ function Create() {
   };
 
   return (
-    <Box>
+    <Stack>
       <Heading>新增影片</Heading>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <Flex flexWrap={['wrap', 'wrap', 'nowrap', 'nowrap']}>
-          <Box
-            mt={2}
-            border="2px solid black"
-            w={`calc(${opts.width}px + 4px)`}
-            h={`calc(${opts.height}px + 4px)`}
-            mx="auto"
-          >
-            <YouTube videoId={videoId} opts={opts} onReady={handleReady} onPlay={handlePlay} onError={handleError} />
+      <Flex flexDirection={{ base: 'column', lg: 'row' }}>
+        <Box mr={{ base: 'auto', lg: 2 }} mb={2} w="100%">
+          <Box position="relative" pt="56.25%" w="100%">
+            <YouTube
+              className="youtube-player"
+              videoId={videoId}
+              opts={opts}
+              onReady={handleReady}
+              onPlay={handlePlay}
+              onError={handleError}
+            />
           </Box>
-          <Box
-            mx={4}
-            width={['100%', '100%', `calc(100% - ${opts.width}px - 4px)`, `calc(100% - ${opts.width}px - 4px)`]}
-          >
+        </Box>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <Box textAlign="left" w={{ base: '100%', lg: '420px' }} height="100%">
+            <Button w="100%" type="submit" disabled={!currentVideoUrl || videoError || !video}>
+              送出資料
+            </Button>
             <FormControl>
               <FormLabel htmlFor="url">影片網址</FormLabel>
               <Input
@@ -121,20 +124,17 @@ function Create() {
                 </Select>
               </FormControl>
             </Flex>
-            <FormControl>
+            <FormControl height="calc(100% - 144px - 1rem - 40px - 24px - 1rem)">
               <FormLabel mt={2} htmlFor="description">
                 影片敘述
               </FormLabel>
-              <Textarea name="description" placeholder="輸入影片敘述" ref={register} />
+              <Textarea height="100%" name="description" placeholder="輸入影片敘述" ref={register} />
             </FormControl>
           </Box>
-        </Flex>
-        <Button type="submit" disabled={!currentVideoUrl || videoError || !video}>
-          送出資料
-        </Button>
-      </form>
+        </form>
+      </Flex>
       <TimestampList video={video} {...timestampsState} />
-    </Box>
+    </Stack>
   );
 }
 
