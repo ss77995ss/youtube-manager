@@ -7,12 +7,11 @@ function AddTimestampForm({ addNewTimestamp, handleChangeMode }) {
 
   const onSubmit = (newTimestamp) => {
     addNewTimestamp(newTimestamp);
-    window.scrollTo(0, document.body.scrollHeight);
   };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <Box my={2} border="1px solid" p={4}>
+      <Box my={2} border="1px solid" p={4} rounded="md" shadow="md">
         <Heading as="h4" size="sm">
           新增時間軸
         </Heading>

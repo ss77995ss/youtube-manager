@@ -52,7 +52,9 @@ function TimeSelector({ register }) {
         <FormItem>
           <Select ref={register} name="hour" value={hour} onChange={handleChangeTimestamp}>
             {[...Array(24).keys()].map((number) => (
-              <option value={number}>{`0${number}`.slice(-2)}</option>
+              <option key={`hour-${number}`} value={number}>
+                {`0${number}`.slice(-2)}
+              </option>
             ))}
           </Select>
         </FormItem>
@@ -60,7 +62,9 @@ function TimeSelector({ register }) {
         <FormItem mx={4}>
           <Select ref={register} name="minute" value={minute} onChange={handleChangeTimestamp}>
             {[...Array(60).keys()].map((number) => (
-              <option value={number}>{`0${number}`.slice(-2)}</option>
+              <option key={`minute-${number}`} value={number}>
+                {`0${number}`.slice(-2)}
+              </option>
             ))}
           </Select>
         </FormItem>
@@ -68,7 +72,9 @@ function TimeSelector({ register }) {
         <FormItem>
           <Select ref={register} name="second" value={second} onChange={handleChangeTimestamp}>
             {[...Array(60).keys()].map((number) => (
-              <option value={number}>{`0${number}`.slice(-2)}</option>
+              <option key={`second-${number}`} value={number}>
+                {`0${number}`.slice(-2)}
+              </option>
             ))}
           </Select>
         </FormItem>

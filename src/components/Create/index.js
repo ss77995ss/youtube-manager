@@ -20,7 +20,7 @@ import useParams from '../../hooks/useParams';
 import { useVideosCtx } from '../../hooks/useVideos';
 import { useYoutubeCtx } from '../../hooks/useYouTube';
 import useTimestamps from '../../hooks/useTimestamps';
-import TimestampList from '../common/Timestamps';
+import Timestamps from '../common/Timestamps';
 import AddCategoryForm from './AddCategoryForm';
 
 const getVideoId = (url) => {
@@ -74,7 +74,7 @@ function Create() {
     <Stack>
       <Heading>新增影片</Heading>
       <Flex flexDirection={{ base: 'column', lg: 'row' }}>
-        <Box mr={{ base: 'auto', lg: 2 }} mb={2} w="100%">
+        <Box mx={{ base: 'auto', lg: 10 }} mb={2} w="100%">
           <Box position="relative" pt="56.25%" w="100%">
             <YouTube
               className="youtube-player"
@@ -133,7 +133,7 @@ function Create() {
           </Box>
         </form>
       </Flex>
-      <TimestampList video={video} {...timestampsState} />
+      <Timestamps video={video} {...timestampsState} />
     </Stack>
   );
 }

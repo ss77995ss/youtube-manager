@@ -24,7 +24,7 @@ function ShareButton({ video }) {
 
   return (
     <>
-      <IconButton icon={<LinkIcon />} onClick={onOpen} />
+      <IconButton w="100%" icon={<LinkIcon />} onClick={onOpen} />
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>

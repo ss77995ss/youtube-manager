@@ -1,10 +1,10 @@
-import { Box, Stack, Heading, Flex, Text } from '@chakra-ui/react';
+import { Box, Stack, Heading, Flex, Text, Textarea } from '@chakra-ui/react';
 import YouTube from 'react-youtube';
 import { useParams } from 'react-router-dom';
 import { useVideosCtx } from '../../hooks/useVideos';
 import { useYoutubeCtx } from '../../hooks/useYouTube';
 import useTimestamps from '../../hooks/useTimestamps';
-import TimestampList from '../common/Timestamps';
+import Timestamps from '../common/Timestamps';
 import Buttons from './Buttons';
 
 const opts = {
@@ -36,24 +36,26 @@ function Show() {
   return (
     <Stack>
       <Flex flexDirection={{ base: 'column', lg: 'row' }}>
-        <Box mr={{ base: 'auto', lg: 2 }} mb={2} w="100%">
+        <Box mx={{ base: 'auto', lg: 'auto' }} mb={2} w="100%" maxWidth={1116}>
           <Box position="relative" pt="56.25%" w="100%">
             <YouTube className="youtube-player" videoId={videoId} opts={opts} onReady={handleReady} />
           </Box>
         </Box>
-        <Stack mt={{ sm: 2, lg: 0 }} textAlign="left" w={{ base: '100%', lg: '420px' }} height="100%">
-          <Buttons video={video} />
-          <Heading as="h4" size="sm">
-            影片標題
-          </Heading>
-          <Text>{title}</Text>
-          <Heading as="h4" size="sm">
-            影片敘述
-          </Heading>
-          <Text>{description || '無敘述'}</Text>
-        </Stack>
+        <Box>
+          <Stack mt={{ sm: 2, lg: 0 }} textAlign="left" w={{ base: '100%', lg: '420px' }} height="100%">
+            <Buttons video={video} />
+            <Heading as="h4" size="sm">
+              影片標題
+            </Heading>
+            <Text>{title}</Text>
+            <Heading as="h4" size="sm">
+              影片敘述
+            </Heading>
+            <Textarea p={0} h="100%" border="none" value={description || '無敘述'} isReadOnly />
+          </Stack>
+        </Box>
       </Flex>
-      <TimestampList video={ytVideo} {...timestampsState} handleChangeMode={handleTimestamp} />
+      <Timestamps video={ytVideo} {...timestampsState} handleChangeMode={handleTimestamp} />
     </Stack>
   );
 }

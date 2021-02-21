@@ -7,7 +7,7 @@ function UpdateButton({ video }) {
 
   return (
     <>
-      <IconButton icon={<EditIcon />} onClick={onOpen} />
+      <IconButton w="100%" icon={<EditIcon />} onClick={onOpen} />
       <UpdateModal key={JSON.stringify(video)} video={video} isOpen={isOpen} onClose={onClose} />
     </>
   );
