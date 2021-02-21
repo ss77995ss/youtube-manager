@@ -1,10 +1,12 @@
-import { Box, Flex, Heading, Stack, IconButton, Tag, TagLabel, TagCloseButton } from '@chakra-ui/react';
+import { Box, Flex, Heading, Stack, IconButton, Tag, TagLabel, TagCloseButton, Collapse } from '@chakra-ui/react';
 import { EditIcon } from '@chakra-ui/icons';
 import { useYoutubeCtx } from '../../hooks/useYouTube';
 import AddTimestampForm from './AddTimestampForm';
+import { useRef } from 'react';
 
-function Timestamps({ timestamps, matches, addNewTimestamp, handleChangeMode, handleDeleteTimeStamp }) {
+function Timestamps({ modeStatus, timestamps, matches, addNewTimestamp, handleChangeMode, handleDeleteTimeStamp }) {
   const { handleSetVideoTime } = useYoutubeCtx();
+  const timestampRef = useRef();
 
   return (
     <Stack textAlign="left">
@@ -12,10 +14,12 @@ function Timestamps({ timestamps, matches, addNewTimestamp, handleChangeMode, ha
         時間軸
         <IconButton ml={2} size="sm" icon={<EditIcon />} onClick={handleChangeMode} />
       </Heading>
-      {matches('edit') && <Box>{<AddTimestampForm addNewTimestamp={addNewTimestamp} />}</Box>}
-      {timestamps.length > 0 && (
-        <Flex flexWrap="wrap">
-          {timestamps.map(({ title, hour, minute, second }, index) => (
+      <Collapse in={matches('edit')} animateOpacity>
+        <Box>{<AddTimestampForm addNewTimestamp={addNewTimestamp} handleChangeMode={handleChangeMode} />}</Box>
+      </Collapse>
+      <Flex flexWrap="wrap" ref={timestampRef}>
+        {timestamps.length > 0 &&
+          timestamps.map(({ title, hour, minute, second }, index) => (
             <Tag mr={2} mb={3} key={`${title}-${index}`}>
               <TagLabel cursor="pointer" onClick={handleSetVideoTime(hour, minute, second)}>
                 {`${title} ${`0${hour}`.slice(-2)}:${`0${minute}`.slice(-2)}:${`0${second}`.slice(-2)}`}
@@ -23,8 +27,7 @@ function Timestamps({ timestamps, matches, addNewTimestamp, handleChangeMode, ha
               {matches('edit') && <TagCloseButton onClick={handleDeleteTimeStamp(index)} />}
             </Tag>
           ))}
-        </Flex>
-      )}
+      </Flex>
     </Stack>
   );
 }

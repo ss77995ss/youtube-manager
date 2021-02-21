@@ -16,7 +16,7 @@ function DeleteButton({ id }) {
 
   return (
     <>
-      <IconButton icon={<DeleteIcon />} onClick={onOpen} />
+      <IconButton w="100%" icon={<DeleteIcon />} onClick={onOpen} />
       <ConfirmModal text="確定要取消此影片" isOpen={isOpen} onClose={onClose} onConfirm={handleDelete(id)} />
     </>
   );

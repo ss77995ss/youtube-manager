@@ -13,8 +13,17 @@ function YoutubeProvider({ children }) {
   const handleReady = (event) => setVideo(() => event.target);
   const handlePlay = () => setVideoError(false);
   const handleError = () => setVideoError(true);
+  const handleSetCurrentTime = () => {};
 
-  const context = { video, videoError, handleSetVideoTime, handleReady, handlePlay, handleError };
+  const context = {
+    video,
+    videoError,
+    handleSetVideoTime,
+    handleReady,
+    handlePlay,
+    handleError,
+    handleSetCurrentTime,
+  };
 
   return <YoutubeContext.Provider value={context}>{children}</YoutubeContext.Provider>;
 }

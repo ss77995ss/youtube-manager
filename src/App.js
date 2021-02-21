@@ -19,7 +19,7 @@ function App() {
             </Box>
             <Flex height="100%" as="section" className="App-body">
               <Sidebar />
-              <Box width="100%" height="100%" p={3} textAlign="center" as="section">
+              <Box width="100%" height="100%" overflow="auto" p={3} textAlign="center" as="section">
                 <Switch>
                   <Route exact path="/">
                     <Link to="/create">新增影片</Link>
