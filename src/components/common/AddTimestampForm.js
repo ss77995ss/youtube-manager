@@ -11,11 +11,11 @@ function AddTimestampForm({ addNewTimestamp, handleChangeMode }) {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <Box my={2} border="1px solid" p={4} rounded="md" shadow="md">
+      <Box mb={2} border="1px solid" p={4} rounded="md" shadow="md">
         <Heading as="h4" size="sm">
           新增時間軸
         </Heading>
-        <Stack direction={['column', 'column', 'row', 'row']} mt={4}>
+        <Stack direction={['column', 'column', 'row', 'row']} mt={2}>
           <FormControl>
             <FormLabel htmlFor="title">名稱*</FormLabel>
             <Input name="title" type="text" ref={register({ required: true })} />

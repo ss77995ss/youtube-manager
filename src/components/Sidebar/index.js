@@ -12,6 +12,7 @@ function Sidebar({ isOpen, onClose }) {
         borderRight="1px solid #ccc"
         p={3}
         as="aside"
+        position="fixed"
       >
         <SidebarContent />
       </Box>

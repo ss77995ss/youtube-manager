@@ -14,16 +14,33 @@ function App() {
     <Router>
       <ChakraProvider>
         <VideosProvider>
-          <Box height="100vh" className="App">
-            <HStack as="header" className="App-header" boxShadow="rgba(0, 0, 0, 0.05) 0px 1px 2px 0px">
+          <Box className="App">
+            <HStack
+              position="fixed"
+              as="header"
+              w="100%"
+              bg="white"
+              top={0}
+              zIndex={3}
+              className="App-header"
+              boxShadow="rgba(0, 0, 0, 0.05) 0px 1px 2px 0px"
+            >
               <HamburgerIcon ml={4} cursor="pointer" onClick={onOpen} display={{ base: 'block', xl: 'none' }} />
               <Heading m={0} p={2}>
                 <Link to="/">YOUTUBE MANAGER</Link>
               </Heading>
             </HStack>
-            <Flex height="100%" as="section" className="App-body">
+            <Flex height="100%" as="section" className="App-body" pt="60px">
               <Sidebar isOpen={isOpen} onClose={onClose} />
-              <Box width="100%" height="100%" overflow="auto" p={3} textAlign="center" as="section">
+              <Box
+                width="100%"
+                height="100%"
+                overflow="auto"
+                p={3}
+                textAlign="center"
+                as="section"
+                pl={{ base: 0, xl: 280 }}
+              >
                 <Switch>
                   <Route exact path="/">
                     <Link to="/create">新增影片</Link>

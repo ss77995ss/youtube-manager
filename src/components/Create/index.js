@@ -71,10 +71,10 @@ function Create() {
   };
 
   return (
-    <Stack>
-      <Heading>新增影片</Heading>
+    <Stack px={2}>
+      <Heading size="md">新增影片</Heading>
       <Flex flexDirection={{ base: 'column', lg: 'row' }}>
-        <Box mx={{ base: 'auto', lg: 10 }} mb={2} w="100%">
+        <Box mx={{ base: 'auto', lg: 10, '2xl': 20 }} mb={2} w="100%">
           <Box position="relative" pt="56.25%" w="100%">
             <YouTube
               className="youtube-player"
@@ -87,7 +87,7 @@ function Create() {
           </Box>
         </Box>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <Box textAlign="left" w={{ base: '100%', lg: '420px' }} height="100%">
+          <Box textAlign="left" w={{ base: '100%', lg: '420px', '2xl': '540px' }} height="100%">
             <Button w="100%" type="submit" disabled={!currentVideoUrl || videoError || !video}>
               送出資料
             </Button>
