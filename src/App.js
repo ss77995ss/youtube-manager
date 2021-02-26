@@ -39,7 +39,7 @@ function App() {
                 p={3}
                 textAlign="center"
                 as="section"
-                pl={{ base: 0, xl: 280 }}
+                pl={{ base: 3, xl: 280 }}
               >
                 <Switch>
                   <Route exact path="/">

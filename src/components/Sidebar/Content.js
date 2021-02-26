@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import useSidebar from '../../hooks/useSidebar';
 import SearchSelector from './SearchSelector';
 
-function Content() {
+function Content({ onClose }) {
   const { searchType, groupByVideos, lastCategoriesKey, handleKeywordChange, handleToggleSearchType } = useSidebar();
   return (
     <>
@@ -22,6 +22,7 @@ function Content() {
                     <ListItem
                       key={`sidebar-category-${key}-item-${index}`}
                       cursor="pointer"
+                      onClick={onClose}
                       _hover={{ bg: 'gray.300' }}
                     >
                       {video.title}

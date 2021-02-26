@@ -19,7 +19,7 @@ function SidebarDrawer({ isOpen, onClose }) {
           <DrawerCloseButton />
 
           <DrawerBody>
-            <SidebarContent />
+            <SidebarContent onClose={onClose} />
           </DrawerBody>
 
           <DrawerFooter>

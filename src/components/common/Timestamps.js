@@ -4,7 +4,7 @@ import { useYoutubeCtx } from '../../hooks/useYouTube';
 import AddTimestampForm from './AddTimestampForm';
 import { useRef } from 'react';
 
-function Timestamps({ modeStatus, timestamps, matches, addNewTimestamp, handleChangeMode, handleDeleteTimeStamp }) {
+function Timestamps({ timestamps, matches, addNewTimestamp, handleChangeMode, handleDeleteTimeStamp }) {
   const { handleSetVideoTime } = useYoutubeCtx();
   const timestampRef = useRef();
 
@@ -19,10 +19,18 @@ function Timestamps({ modeStatus, timestamps, matches, addNewTimestamp, handleCh
       </Collapse>
       <Flex flexWrap="wrap" ref={timestampRef}>
         {timestamps.length > 0 &&
-          timestamps.map(({ title, hour, minute, second }, index) => (
+          timestamps.map(({ title, startTime, endTime, interval }, index) => (
             <Tag mr={2} mb={3} key={`${title}-${index}`}>
-              <TagLabel cursor="pointer" onClick={handleSetVideoTime(hour, minute, second)}>
-                {`${title} ${`0${hour}`.slice(-2)}:${`0${minute}`.slice(-2)}:${`0${second}`.slice(-2)}`}
+              <TagLabel cursor="pointer" onClick={handleSetVideoTime(startTime, interval)}>
+                {interval === 0
+                  ? `${title} ${`0${startTime.hour}`.slice(-2)}:${`0${startTime.minute}`.slice(
+                      -2,
+                    )}:${`0${startTime.second}`.slice(-2)}`
+                  : `${title} ${`0${startTime.hour}`.slice(-2)}:${`0${startTime.minute}`.slice(
+                      -2,
+                    )}:${`0${startTime.second}`.slice(-2)} ~ ${`0${endTime.hour}`.slice(
+                      -2,
+                    )}:${`0${endTime.minute}`.slice(-2)}:${`0${endTime.second}`.slice(-2)}`}
               </TagLabel>
               {matches('edit') && <TagCloseButton onClick={handleDeleteTimeStamp(index)} />}
             </Tag>
