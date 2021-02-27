@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import { useVideosCtx } from '../../hooks/useVideos';
 import { useYoutubeCtx } from '../../hooks/useYouTube';
 import useTimestamps from '../../hooks/useTimestamps';
-import Timestamps from '../common/Timestamps';
+import Timestamps from '../Timestamps';
 import Buttons from './Buttons';
 
 const opts = {

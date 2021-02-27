@@ -1,12 +1,26 @@
 import { useForm } from 'react-hook-form';
-import { Box, Heading, Button, Input, FormControl, FormLabel, ButtonGroup, Stack } from '@chakra-ui/react';
+import {
+  Box,
+  Flex,
+  Heading,
+  Button,
+  Input,
+  Select,
+  FormControl,
+  FormLabel,
+  ButtonGroup,
+  Stack,
+} from '@chakra-ui/react';
 import { timeToSeconds } from '../../utils/common';
+import { useVideosCtx } from '../../hooks/useVideos';
+import CategoryForm from './CategoryForm';
 import TimeSelector from './TimeSelector';
 
-function AddTimestampForm({ addNewTimestamp, handleChangeMode }) {
+function TimestampForm({ addNewTimestamp, handleChangeMode }) {
   const { register, handleSubmit } = useForm();
+  const { timestampCategories } = useVideosCtx();
 
-  const onSubmit = ({ title, description, startHour, startMinute, startSecond, endHour, endMinute, endSecond }) => {
+  const onSubmit = ({ startHour, startMinute, startSecond, endHour, endMinute, endSecond, ...rest }) => {
     const startTime = {
       hour: startHour,
       minute: startMinute,
@@ -21,8 +35,7 @@ function AddTimestampForm({ addNewTimestamp, handleChangeMode }) {
     if (timeToSeconds(startTime) > timeToSeconds(endTime)) return alert('開始時間不能晚於結束時間');
 
     const newTimestamp = {
-      title,
-      description,
+      ...rest,
       startTime,
       endTime,
       interval: (timeToSeconds(endTime) - timeToSeconds(startTime)) * 1000,
@@ -41,6 +54,21 @@ function AddTimestampForm({ addNewTimestamp, handleChangeMode }) {
           <FormControl>
             <FormLabel htmlFor="title">名稱*</FormLabel>
             <Input name="title" type="text" ref={register({ required: true })} />
+          </FormControl>
+          <FormControl>
+            <Flex>
+              <FormLabel htmlFor="category">時間軸種類</FormLabel>
+              <CategoryForm categories={timestampCategories} />
+            </Flex>
+            <Select name="category" ref={register}>
+              <option value=""></option>
+              {timestampCategories &&
+                timestampCategories.map((category, index) => (
+                  <option key={`timestamp-${category}-${index}`} value={category}>
+                    {category}
+                  </option>
+                ))}
+            </Select>
           </FormControl>
           <FormControl>
             <FormLabel htmlFor="description">敘述（非必填）</FormLabel>
@@ -66,4 +94,4 @@ function AddTimestampForm({ addNewTimestamp, handleChangeMode }) {
   );
 }
 
-export default AddTimestampForm;
+export default TimestampForm;

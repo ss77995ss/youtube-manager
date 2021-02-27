@@ -1,7 +1,7 @@
 import { Box, Flex, Heading, Stack, IconButton, Tag, TagLabel, TagCloseButton, Collapse } from '@chakra-ui/react';
 import { EditIcon } from '@chakra-ui/icons';
 import { useYoutubeCtx } from '../../hooks/useYouTube';
-import AddTimestampForm from './AddTimestampForm';
+import TimestampForm from './TimestampForm';
 import { useRef } from 'react';
 
 function Timestamps({ timestamps, matches, addNewTimestamp, handleChangeMode, handleDeleteTimeStamp }) {
@@ -15,7 +15,7 @@ function Timestamps({ timestamps, matches, addNewTimestamp, handleChangeMode, ha
         <IconButton ml={2} size="sm" icon={<EditIcon />} onClick={handleChangeMode} />
       </Heading>
       <Collapse in={matches('edit')} animateOpacity>
-        <Box>{<AddTimestampForm addNewTimestamp={addNewTimestamp} handleChangeMode={handleChangeMode} />}</Box>
+        <Box>{<TimestampForm addNewTimestamp={addNewTimestamp} handleChangeMode={handleChangeMode} />}</Box>
       </Collapse>
       <Flex flexWrap="wrap" ref={timestampRef}>
         {timestamps.length > 0 &&

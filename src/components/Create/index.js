@@ -20,8 +20,8 @@ import useParams from '../../hooks/useParams';
 import { useVideosCtx } from '../../hooks/useVideos';
 import { useYoutubeCtx } from '../../hooks/useYouTube';
 import useTimestamps from '../../hooks/useTimestamps';
-import Timestamps from '../common/Timestamps';
-import AddCategoryForm from './AddCategoryForm';
+import Timestamps from '../Timestamps';
+import CategoryForm from './CategoryForm';
 
 const getVideoId = (url) => {
   if (/^https:\/\/(youtu\.be)/.test(url)) {
@@ -111,7 +111,7 @@ function Create() {
                   <Button size="xs" fontSize={{ base: '0.65rem' }} onClick={onOpen}>
                     管理影片種類
                   </Button>
-                  <AddCategoryForm categories={categories} isOpen={isOpen} onClose={onClose} />
+                  <CategoryForm categories={categories} isOpen={isOpen} onClose={onClose} />
                 </Flex>
                 <Select name="category" ref={register}>
                   <option value=""></option>
