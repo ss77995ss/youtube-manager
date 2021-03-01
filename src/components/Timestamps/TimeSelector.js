@@ -24,9 +24,12 @@ function TimeSelector({ type, register }) {
   const { video } = useYoutubeCtx();
   const handleSetCurrentVideoTime = () => {
     if (!video) return;
-    const current = video.getCurrentTime();
-    setTimestamp((prev) => {
-      return { ...getPreciseTime(parseInt(current, 10)) };
+    const preciseTime = getPreciseTime(parseInt(video.getCurrentTime(), 10));
+
+    setTimestamp({
+      [`${type}Hour`]: preciseTime.hour,
+      [`${type}Minute`]: preciseTime.minute,
+      [`${type}Second`]: preciseTime.second,
     });
   };
   const handleChangeTimestamp = (event) => {

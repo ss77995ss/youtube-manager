@@ -18,7 +18,7 @@ function Content({ onClose }) {
               </Text>
               {groupByVideos[key].length > 0 &&
                 groupByVideos[key].map((video, index) => (
-                  <Link to={`/show/${video.id}`}>
+                  <Link key={`-${video.id}-${index}`} to={`/show/${video.id}`}>
                     <ListItem
                       key={`sidebar-category-${key}-item-${index}`}
                       cursor="pointer"
