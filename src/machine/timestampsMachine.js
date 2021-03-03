@@ -1,5 +1,5 @@
 import { Machine, assign } from 'xstate';
-import { remove, update } from 'ramda';
+import { findIndex, propEq, remove, update } from 'ramda';
 
 export const timestampsMachine = (timestamps = []) =>
   Machine({
@@ -21,11 +21,23 @@ export const timestampsMachine = (timestamps = []) =>
             actions: [assign({ timestamps: (context, event) => context.timestamps.concat(event.newTimestamp) })],
           },
           DELETE_TIMESTAMP: {
-            actions: [assign({ timestamps: (context, event) => remove(event.index, 1, context.timestamps) })],
+            actions: [
+              assign({
+                timestamps: (context, event) => {
+                  const index = findIndex(propEq('id', event.id))(context.timestamps);
+                  return remove(index, 1, context.timestamps);
+                },
+              }),
+            ],
           },
           UPDATE_TIMESTAMP: {
             actions: [
-              assign({ timestamps: (context, event) => update(event.index, event.newTimestamp, context.timestamps) }),
+              assign({
+                timestamps: (context, event) => {
+                  const index = findIndex(propEq('id', event.id))(context.timestamps);
+                  return update(index, event.newTimestamp, context.timestamps);
+                },
+              }),
             ],
           },
         },

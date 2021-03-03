@@ -3,7 +3,7 @@ import { EditIcon } from '@chakra-ui/icons';
 import { useYoutubeCtx } from '../../hooks/useYouTube';
 import UpdateModal from './UpdateModal';
 
-function TimestampTag({ timestamp, updateTimestamp, index, matches, handleDeleteTimeStamp }) {
+function TimestampTag({ timestamp, updateTimestamp, matches, handleDeleteTimeStamp }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { handleSetVideoTime } = useYoutubeCtx();
   const { title, startTime, endTime, interval } = timestamp;
@@ -24,13 +24,13 @@ function TimestampTag({ timestamp, updateTimestamp, index, matches, handleDelete
         <>
           <TagRightIcon as={EditIcon} onClick={onOpen} />
           <UpdateModal
-            index={index}
+            key={`${timestamp.id}-${JSON.stringify(timestamp)}`}
             timestamp={timestamp}
             updateTimestamp={updateTimestamp}
             isOpen={isOpen}
             onClose={onClose}
           />
-          <TagCloseButton onClick={handleDeleteTimeStamp(index)} />
+          <TagCloseButton onClick={handleDeleteTimeStamp(timestamp.id)} />
         </>
       )}
     </Tag>

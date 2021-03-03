@@ -11,6 +11,7 @@ import {
   ButtonGroup,
   Stack,
 } from '@chakra-ui/react';
+import { v1 as uuidv1 } from 'uuid';
 import { timeToSeconds } from '../../utils/common';
 import { useVideosCtx } from '../../hooks/useVideos';
 import CategoryForm from './CategoryForm';
@@ -36,6 +37,7 @@ function TimestampForm({ addNewTimestamp, handleChangeMode }) {
 
     const newTimestamp = {
       ...rest,
+      id: uuidv1(),
       startTime,
       endTime,
       interval: (timeToSeconds(endTime) - timeToSeconds(startTime)) * 1000,

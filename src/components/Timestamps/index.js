@@ -41,11 +41,10 @@ function Timestamps({
                 <Flex flexWrap="wrap">
                   {sortTimestampsByStartTime(groupByTimestamps[key]).map((timestamp, index) => (
                     <Tag
-                      index={index}
                       matches={matches}
                       timestamp={timestamp}
                       updateTimestamp={updateTimestamp}
-                      key={`${timestamp.category}-${timestamp.title}-${index}`}
+                      key={`${timestamp.category}-${timestamp.id}-${index}`}
                       handleDeleteTimeStamp={handleDeleteTimeStamp}
                     />
                   ))}

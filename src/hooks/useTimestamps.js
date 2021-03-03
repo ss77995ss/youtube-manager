@@ -19,8 +19,8 @@ function useTimestamps(defaultTimestamps) {
     return byCategory(resolvedTimestamps);
   }, [resolvedTimestamps]);
   const addNewTimestamp = (newTimestamp) => send({ type: 'ADD_TIMESTAMP', newTimestamp });
-  const deleteTimestamp = (index) => send({ type: 'DELETE_TIMESTAMP', index });
-  const updateTimestamp = (index, newTimestamp) => send({ type: 'UPDATE_TIMESTAMP', index, newTimestamp });
+  const deleteTimestamp = (id) => send({ type: 'DELETE_TIMESTAMP', id });
+  const updateTimestamp = (id, newTimestamp) => send({ type: 'UPDATE_TIMESTAMP', id, newTimestamp });
   const changeMode = () => send({ type: 'CHANGE_MODE' });
   const handleChangeMode = () => changeMode();
   const handleDeleteTimeStamp = (index) => () => deleteTimestamp(index);
