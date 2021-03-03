@@ -1,5 +1,5 @@
 import { Machine, assign } from 'xstate';
-import { remove } from 'ramda';
+import { remove, update } from 'ramda';
 
 export const timestampsMachine = (timestamps = []) =>
   Machine({
@@ -22,6 +22,11 @@ export const timestampsMachine = (timestamps = []) =>
           },
           DELETE_TIMESTAMP: {
             actions: [assign({ timestamps: (context, event) => remove(event.index, 1, context.timestamps) })],
+          },
+          UPDATE_TIMESTAMP: {
+            actions: [
+              assign({ timestamps: (context, event) => update(event.index, event.newTimestamp, context.timestamps) }),
+            ],
           },
         },
       },

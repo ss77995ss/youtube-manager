@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useState, useMemo } from 'react';
 import { useMachine } from '@xstate/react';
 import { timestampsMachine } from '../machine/timestampsMachine';
 import { groupBy } from 'ramda';
@@ -10,29 +10,36 @@ const byCategory = groupBy((arr) => {
 });
 
 function useTimestamps(defaultTimestamps) {
+  const [searchKeyword, setSearchKeyword] = useState('');
   const [state, send] = useMachine(timestampsMachine(defaultTimestamps));
+  const resolvedTimestamps = state.context.timestamps.filter(({ title }) =>
+    title.toLowerCase().includes(searchKeyword.toLowerCase()),
+  );
   const groupByTimestamps = useMemo(() => {
-    return byCategory(state.context.timestamps);
-  }, [state.context.timestamps]);
+    return byCategory(resolvedTimestamps);
+  }, [resolvedTimestamps]);
   const addNewTimestamp = (newTimestamp) => send({ type: 'ADD_TIMESTAMP', newTimestamp });
   const deleteTimestamp = (index) => send({ type: 'DELETE_TIMESTAMP', index });
+  const updateTimestamp = (index, newTimestamp) => send({ type: 'UPDATE_TIMESTAMP', index, newTimestamp });
   const changeMode = () => send({ type: 'CHANGE_MODE' });
   const handleChangeMode = () => changeMode();
   const handleDeleteTimeStamp = (index) => () => deleteTimestamp(index);
-
-  console.log(groupByTimestamps);
+  const handleKeywordChange = (event) => setSearchKeyword(event.target.value);
 
   return {
     timestamps: state.context.timestamps,
+    resolvedTimestamps,
     groupByTimestamps,
     lastCategoriesKey,
     modeStatus: state.value,
     matches: state.matches,
     addNewTimestamp,
     deleteTimestamp,
+    updateTimestamp,
     changeMode,
     handleChangeMode,
     handleDeleteTimeStamp,
+    handleKeywordChange,
   };
 }
 

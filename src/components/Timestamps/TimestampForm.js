@@ -40,7 +40,7 @@ function TimestampForm({ addNewTimestamp, handleChangeMode }) {
       endTime,
       interval: (timeToSeconds(endTime) - timeToSeconds(startTime)) * 1000,
     };
-    console.log(newTimestamp);
+
     addNewTimestamp(newTimestamp);
   };
 

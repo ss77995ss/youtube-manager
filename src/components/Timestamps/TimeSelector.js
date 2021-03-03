@@ -45,7 +45,7 @@ function TimeSelector({ type, register }) {
     <Box w={{ base: '100%', lg: '50%' }}>
       <Stack my={2} direction="row">
         <Text align="left" fontWeight={500}>
-          時間
+          {type === 'start' ? '開始時間' : '結束時間'}
         </Text>
         <Button size="xs" fontSize={{ base: '0.65rem' }} onClick={handleSetCurrentVideoTime}>
           現在影片時間
