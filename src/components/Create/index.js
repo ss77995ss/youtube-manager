@@ -20,8 +20,8 @@ import useParams from '../../hooks/useParams';
 import { useVideosCtx } from '../../hooks/useVideos';
 import { useYoutubeCtx } from '../../hooks/useYouTube';
 import useTimestamps from '../../hooks/useTimestamps';
-import Timestamps from '../common/Timestamps';
-import AddCategoryForm from './AddCategoryForm';
+import Timestamps from '../Timestamps';
+import CategoryForm from './CategoryForm';
 
 const getVideoId = (url) => {
   if (/^https:\/\/(youtu\.be)/.test(url)) {
@@ -71,10 +71,10 @@ function Create() {
   };
 
   return (
-    <Stack>
-      <Heading>新增影片</Heading>
+    <Stack px={2}>
+      <Heading size="md">新增影片</Heading>
       <Flex flexDirection={{ base: 'column', lg: 'row' }}>
-        <Box mx={{ base: 'auto', lg: 10 }} mb={2} w="100%">
+        <Box mx={{ base: 'auto', lg: 10, '2xl': 20 }} mb={2} w="100%">
           <Box position="relative" pt="56.25%" w="100%">
             <YouTube
               className="youtube-player"
@@ -87,7 +87,7 @@ function Create() {
           </Box>
         </Box>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <Box textAlign="left" w={{ base: '100%', lg: '420px' }} height="100%">
+          <Box textAlign="left" w={{ base: '100%', lg: '420px', '2xl': '540px' }} height="100%">
             <Button w="100%" type="submit" disabled={!currentVideoUrl || videoError || !video}>
               送出資料
             </Button>
@@ -111,7 +111,7 @@ function Create() {
                   <Button size="xs" fontSize={{ base: '0.65rem' }} onClick={onOpen}>
                     管理影片種類
                   </Button>
-                  <AddCategoryForm categories={categories} isOpen={isOpen} onClose={onClose} />
+                  <CategoryForm categories={categories} isOpen={isOpen} onClose={onClose} />
                 </Flex>
                 <Select name="category" ref={register}>
                   <option value=""></option>

@@ -15,18 +15,21 @@ function getPreciseTime(seconds) {
 
 const FormItem = ({ children }) => <FormControl w="33%">{children}</FormControl>;
 
-function TimeSelector({ register }) {
-  const [{ hour, minute, second }, setTimestamp] = useState({
-    hour: 0,
-    minute: 0,
-    second: 0,
+function TimeSelector({ type, register }) {
+  const [time, setTimestamp] = useState({
+    [`${type}Hour`]: 0,
+    [`${type}Minute`]: 0,
+    [`${type}Second`]: 0,
   });
   const { video } = useYoutubeCtx();
   const handleSetCurrentVideoTime = () => {
     if (!video) return;
-    const current = video.getCurrentTime();
-    setTimestamp((prev) => {
-      return { ...getPreciseTime(parseInt(current, 10)) };
+    const preciseTime = getPreciseTime(parseInt(video.getCurrentTime(), 10));
+
+    setTimestamp({
+      [`${type}Hour`]: preciseTime.hour,
+      [`${type}Minute`]: preciseTime.minute,
+      [`${type}Second`]: preciseTime.second,
     });
   };
   const handleChangeTimestamp = (event) => {
@@ -39,10 +42,10 @@ function TimeSelector({ register }) {
   };
 
   return (
-    <Box>
+    <Box w={{ base: '100%', lg: '50%' }}>
       <Stack my={2} direction="row">
         <Text align="left" fontWeight={500}>
-          時間
+          {type === 'start' ? '開始時間' : '結束時間'}
         </Text>
         <Button size="xs" fontSize={{ base: '0.65rem' }} onClick={handleSetCurrentVideoTime}>
           現在影片時間
@@ -50,7 +53,7 @@ function TimeSelector({ register }) {
       </Stack>
       <Stack direction="row" align="center">
         <FormItem>
-          <Select ref={register} name="hour" value={hour} onChange={handleChangeTimestamp}>
+          <Select ref={register} name={`${type}Hour`} value={time[`${type}Hour`]} onChange={handleChangeTimestamp}>
             {[...Array(24).keys()].map((number) => (
               <option key={`hour-${number}`} value={number}>
                 {`0${number}`.slice(-2)}
@@ -60,7 +63,7 @@ function TimeSelector({ register }) {
         </FormItem>
         <Text textAlign="center">：</Text>
         <FormItem mx={4}>
-          <Select ref={register} name="minute" value={minute} onChange={handleChangeTimestamp}>
+          <Select ref={register} name={`${type}Minute`} value={time[`${type}Minute`]} onChange={handleChangeTimestamp}>
             {[...Array(60).keys()].map((number) => (
               <option key={`minute-${number}`} value={number}>
                 {`0${number}`.slice(-2)}
@@ -70,7 +73,7 @@ function TimeSelector({ register }) {
         </FormItem>
         <Text textAlign="center">：</Text>
         <FormItem>
-          <Select ref={register} name="second" value={second} onChange={handleChangeTimestamp}>
+          <Select ref={register} name={`${type}Second`} value={time[`${type}Second`]} onChange={handleChangeTimestamp}>
             {[...Array(60).keys()].map((number) => (
               <option key={`second-${number}`} value={number}>
                 {`0${number}`.slice(-2)}

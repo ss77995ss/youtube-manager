@@ -1,13 +1,20 @@
-import { useState, createContext, useContext } from 'react';
+import { useState, useRef, createContext, useContext } from 'react';
+import { timeToSeconds } from '../utils/common';
 
 const YoutubeContext = createContext();
 
 function YoutubeProvider({ children }) {
   const [video, setVideo] = useState(undefined);
+  const timeoutRef = useRef(undefined);
   const [videoError, setVideoError] = useState(false);
 
-  const handleSetVideoTime = (hour, minute, second) => () => {
-    video.seekTo(parseInt(hour, 10) * 3600 + parseInt(minute, 10) * 60 + parseInt(second, 10));
+  const handleSetVideoTime = (time, interval) => () => {
+    clearTimeout(timeoutRef.current);
+    video.seekTo(timeToSeconds(time));
+    video.playVideo();
+    if (interval) {
+      timeoutRef.current = setTimeout(() => video.pauseVideo(), interval + 1000);
+    }
     window.scrollTo(0, 0);
   };
   const handleReady = (event) => setVideo(() => event.target);

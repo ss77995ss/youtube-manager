@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import { useVideosCtx } from '../../hooks/useVideos';
 import { useYoutubeCtx } from '../../hooks/useYouTube';
 import useTimestamps from '../../hooks/useTimestamps';
-import Timestamps from '../common/Timestamps';
+import Timestamps from '../Timestamps';
 import Buttons from './Buttons';
 
 const opts = {
@@ -34,9 +34,9 @@ function Show() {
   };
 
   return (
-    <Stack>
+    <Stack px={2}>
       <Flex flexDirection={{ base: 'column', lg: 'row' }}>
-        <Box mx={{ base: 'auto', lg: 'auto' }} mb={2} w="100%" maxWidth={1116}>
+        <Box mx={{ base: 'auto', lg: 4 }} mb={2} w="100%" maxWidth={1116}>
           <Box position="relative" pt="56.25%" w="100%">
             <YouTube className="youtube-player" videoId={videoId} opts={opts} onReady={handleReady} />
           </Box>

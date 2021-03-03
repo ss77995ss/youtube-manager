@@ -8,7 +8,7 @@ function useCategories() {
   const deleteCategory = (index) => send({ type: 'DELETE_CATEGORY', index });
 
   return {
-    ...state.context,
+    categories: state.context.categories,
     addNewCategory,
     updateCategory,
     deleteCategory,
