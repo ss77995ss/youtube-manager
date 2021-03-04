@@ -17,7 +17,7 @@ import { LinkIcon } from '@chakra-ui/icons';
 import { encode } from 'js-base64';
 
 function ShareButton({ video }) {
-  const encodeVideo = encode(JSON.stringify(video));
+  const encodeVideo = encode(JSON.stringify(video), true);
   const shareLink = `${window.location.origin}/create/?vh=${encodeVideo}`;
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { hasCopied, onCopy } = useClipboard(shareLink);
