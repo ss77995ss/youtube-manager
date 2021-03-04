@@ -59,11 +59,17 @@ function Create() {
   const videoId = currentVideoUrl ? getVideoId(currentVideoUrl) : '';
 
   const onSubmit = (data) => {
+    const newTimestamps = timestampsState.timestamps.map((timestamp) => {
+      return {
+        ...timestamp,
+        id: uuidv1(),
+      };
+    });
     const newVideo = {
       ...data,
       id: uuidv1(),
       videoId,
-      timestamps: timestampsState.timestamps,
+      timestamps: newTimestamps,
     };
 
     addNewVideo(newVideo);

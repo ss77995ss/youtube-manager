@@ -63,7 +63,7 @@ function UpdateTimestampModal({ timestamp, updateTimestamp, isOpen, onClose }) {
   };
 
   return (
-    <Modal size="2xl" isOpen={isOpen} onClose={onClose}>
+    <Modal size="3xl" isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
       <ModalContent>
         <ModalHeader>

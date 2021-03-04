@@ -43,4 +43,9 @@ export const timestampsMachine = (timestamps = []) =>
         },
       },
     },
+    on: {
+      RESET_TIMESTAMP: {
+        actions: [assign({ timestamps: (_, event) => event.timestamp })],
+      },
+    },
   });
