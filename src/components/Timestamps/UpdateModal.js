@@ -22,7 +22,7 @@ import { useVideosCtx } from '../../hooks/useVideos';
 import CategoryForm from './CategoryForm';
 import TimeSelector from './TimeSelector';
 
-function UpdateTimestampModal({ timestamp, updateTimestamp, isOpen, onClose }) {
+function UpdateTimestampModal({ timestamp, actions, isOpen, onClose }) {
   const { id, startTime, endTime } = timestamp;
   const { register, handleSubmit } = useForm({
     defaultValues: {
@@ -58,7 +58,7 @@ function UpdateTimestampModal({ timestamp, updateTimestamp, isOpen, onClose }) {
       interval: (timeToSeconds(endTime) - timeToSeconds(startTime)) * 1000,
     };
 
-    updateTimestamp(id, newTimestamp);
+    actions.updateTimestamp(id, newTimestamp);
     onClose();
   };
 

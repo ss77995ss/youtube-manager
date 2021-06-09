@@ -17,7 +17,7 @@ import { useVideosCtx } from '../../hooks/useVideos';
 import CategoryForm from './CategoryForm';
 import TimeSelector from './TimeSelector';
 
-function TimestampForm({ addNewTimestamp, handleChangeMode }) {
+function TimestampForm({ actions, handleChangeMode }) {
   const { register, handleSubmit } = useForm();
   const { timestampCategories } = useVideosCtx();
 
@@ -43,7 +43,7 @@ function TimestampForm({ addNewTimestamp, handleChangeMode }) {
       interval: (timeToSeconds(endTime) - timeToSeconds(startTime)) * 1000,
     };
 
-    addNewTimestamp(newTimestamp);
+    actions.addNewTimestamp(newTimestamp);
   };
 
   return (

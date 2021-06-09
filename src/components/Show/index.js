@@ -31,13 +31,13 @@ function Show() {
         timestamps: timestampsState.timestamps,
       });
     }
-    timestampsState.changeMode();
+    timestampsState.actions.changeMode();
   };
 
   useEffect(() => {
-    timestampsState.resetTimestamp();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [id])
+    timestampsState.actions.resetTimestamp();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [id]);
 
   return (
     <Stack px={2}>
