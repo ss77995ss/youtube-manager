@@ -6,6 +6,7 @@ import { useYoutubeCtx } from '../../hooks/useYouTube';
 import useTimestamps from '../../hooks/useTimestamps';
 import Timestamps from '../Timestamps';
 import Buttons from './Buttons';
+import { useEffect } from 'react';
 
 const opts = {
   width: '100%',
@@ -30,8 +31,13 @@ function Show() {
         timestamps: timestampsState.timestamps,
       });
     }
-    timestampsState.changeMode();
+    timestampsState.actions.changeMode();
   };
+
+  useEffect(() => {
+    timestampsState.actions.resetTimestamp();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [id]);
 
   return (
     <Stack px={2}>

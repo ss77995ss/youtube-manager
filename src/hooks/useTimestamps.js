@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect } from 'react';
+import { useState, useMemo } from 'react';
 import { useMachine } from '@xstate/react';
 import { timestampsMachine } from '../machine/timestampsMachine';
 import { groupBy } from 'ramda';
@@ -19,13 +19,10 @@ function useTimestamps(defaultTimestamps) {
     return byCategory(resolvedTimestamps);
   }, [resolvedTimestamps]);
 
-  useEffect(() => {
-    send({ type: 'RESET_TIMESTAMP', timestamp: defaultTimestamps });
-  }, [send, defaultTimestamps]);
-
   const addNewTimestamp = (newTimestamp) => send({ type: 'ADD_TIMESTAMP', newTimestamp });
   const deleteTimestamp = (id) => send({ type: 'DELETE_TIMESTAMP', id });
   const updateTimestamp = (id, newTimestamp) => send({ type: 'UPDATE_TIMESTAMP', id, newTimestamp });
+  const resetTimestamp = () => send({ type: 'RESET_TIMESTAMP', timestamp: defaultTimestamps });
   const changeMode = () => send({ type: 'CHANGE_MODE' });
   const handleChangeMode = () => changeMode();
   const handleDeleteTimeStamp = (index) => () => deleteTimestamp(index);
@@ -38,10 +35,13 @@ function useTimestamps(defaultTimestamps) {
     lastCategoriesKey,
     modeStatus: state.value,
     matches: state.matches,
-    addNewTimestamp,
-    deleteTimestamp,
-    updateTimestamp,
-    changeMode,
+    actions: {
+      addNewTimestamp,
+      deleteTimestamp,
+      updateTimestamp,
+      resetTimestamp,
+      changeMode,
+    },
     handleChangeMode,
     handleDeleteTimeStamp,
     handleKeywordChange,
