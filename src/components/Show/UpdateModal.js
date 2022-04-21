@@ -1,4 +1,5 @@
 import { useForm } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 import {
   Modal,
   ModalOverlay,
@@ -18,6 +19,7 @@ import {
 import { useVideosCtx } from '../../hooks/useVideos';
 
 function UpdateModal({ video, isOpen, onClose }) {
+  const { t } = useTranslation();
   const { id, title, category, description } = video;
   const { register, handleSubmit } = useForm({
     defaultValues: {
@@ -48,11 +50,11 @@ function UpdateModal({ video, isOpen, onClose }) {
         <form onSubmit={handleSubmit(onSubmit)}>
           <ModalBody>
             <FormControl pr={2}>
-              <FormLabel htmlFor="title">影片標題*</FormLabel>
-              <Input name="title" placeholder="輸入影片標題" ref={register({ required: true })} />
+              <FormLabel htmlFor="title">{t('videoTitle')}</FormLabel>
+              <Input name="title" placeholder={t('inputVideoTitle')} ref={register({ required: true })} />
             </FormControl>
             <FormControl>
-              <FormLabel htmlFor="category">影片種類</FormLabel>
+              <FormLabel htmlFor="category">{t('videoCategory')}</FormLabel>
               <Select name="category" ref={register}>
                 <option value=""></option>
                 {categories &&
@@ -65,15 +67,15 @@ function UpdateModal({ video, isOpen, onClose }) {
             </FormControl>
             <FormControl>
               <FormLabel mt={2} htmlFor="description">
-                影片敘述
+                {t('videoDescription')}
               </FormLabel>
-              <Textarea name="description" placeholder="輸入影片敘述" ref={register} />
+              <Textarea name="description" placeholder={t('inputVideoDescription')} ref={register} />
             </FormControl>
           </ModalBody>
           <ModalFooter>
             <ButtonGroup>
-              <Button type="submit">確認</Button>
-              <Button onClick={onClose}>取消</Button>
+              <Button type="submit">{t('confirm')}</Button>
+              <Button onClick={onClose}>{t('cancel')}</Button>
             </ButtonGroup>
           </ModalFooter>
         </form>

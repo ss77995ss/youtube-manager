@@ -1,10 +1,12 @@
 import { IconButton, useDisclosure } from '@chakra-ui/react';
 import { DeleteIcon } from '@chakra-ui/icons';
 import { useHistory } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { useVideosCtx } from '../../hooks/useVideos';
 import ConfirmModal from '../common/ConfirmModal';
 
 function DeleteButton({ id }) {
+  const { t } = useTranslation();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { deleteVideo } = useVideosCtx();
   const history = useHistory();
@@ -17,7 +19,7 @@ function DeleteButton({ id }) {
   return (
     <>
       <IconButton w="100%" icon={<DeleteIcon />} onClick={onOpen} />
-      <ConfirmModal text="確定要取消此影片" isOpen={isOpen} onClose={onClose} onConfirm={handleDelete(id)} />
+      <ConfirmModal text={t('confirmDeleteVideo')} isOpen={isOpen} onClose={onClose} onConfirm={handleDelete(id)} />
     </>
   );
 }

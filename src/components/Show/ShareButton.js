@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import {
   Flex,
   Button,
@@ -17,6 +18,7 @@ import { LinkIcon } from '@chakra-ui/icons';
 import { encode } from 'js-base64';
 
 function ShareButton({ video }) {
+  const { t } = useTranslation();
   const encodeVideo = encode(JSON.stringify(video), true);
   const shareLink = `${window.location.origin}/create/?vh=${encodeVideo}`;
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -29,7 +31,7 @@ function ShareButton({ video }) {
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>
-            <Text>分享連結</Text>
+            <Text>{t('shareLink')}</Text>
             <ModalCloseButton />
           </ModalHeader>
           <ModalBody>

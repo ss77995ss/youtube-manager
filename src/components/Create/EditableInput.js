@@ -1,11 +1,13 @@
 import { Flex, Input, Text, IconButton, ButtonGroup } from '@chakra-ui/react';
 import { CheckIcon, CloseIcon, DeleteIcon, EditIcon } from '@chakra-ui/icons';
 import { useForm } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 import { useMachine } from '@xstate/react';
 import { editableInputMachine } from '../../machine/editableInput';
 import InputErrorMessage from '../common/InputErrorMessage';
 
 function EditableInput({ index, initialValue, onEdit, onDelete, validator, errorMessage }) {
+  const { t } = useTranslation();
   const { register, handleSubmit, errors } = useForm({ defaultValues: { edit: initialValue } });
   const [state, send] = useMachine(editableInputMachine);
   const handleOpen = () => send('OPEN_EDIT');
@@ -40,7 +42,7 @@ function EditableInput({ index, initialValue, onEdit, onDelete, validator, error
           <IconButton type="button" icon={<CloseIcon />} onClick={handleClose} />
         </ButtonGroup>
       </Flex>
-      {errors.edit?.type === 'required' && <InputErrorMessage message="請填入影片種類名稱" />}
+      {errors.edit?.type === 'required' && <InputErrorMessage message={t('inputVideoCatName')} />}
       {errors.edit?.type === 'validate' && <InputErrorMessage message={errorMessage} />}
     </form>
   );

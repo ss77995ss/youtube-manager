@@ -1,4 +1,5 @@
 import { useForm } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 import {
   Box,
   Button,
@@ -18,6 +19,7 @@ import InputErrorMessage from '../common/InputErrorMessage';
 function AddCategoryForm({ categories, isOpen, onClose }) {
   const { register, handleSubmit, errors } = useForm();
   const { addNewCategory, deleteCategory, updateCategory } = useVideosCtx();
+  const { t } = useTranslation();
   const validator = (value) => {
     return !categories.includes(value);
   };
@@ -30,7 +32,7 @@ function AddCategoryForm({ categories, isOpen, onClose }) {
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>管理影片種類</ModalHeader>
+        <ModalHeader>{t('manageVideoCategories')}</ModalHeader>
         <ModalCloseButton />
         <ModalBody>
           <Box>
@@ -40,16 +42,16 @@ function AddCategoryForm({ categories, isOpen, onClose }) {
                   mr={2}
                   variant="flushed"
                   name="newCategory"
-                  placeholder="輸入種類名稱"
+                  placeholder={t('inputVideoCategory')}
                   ref={register({
                     required: true,
                     validate: validator,
                   })}
                 />
-                <Button type="submit">新增</Button>
+                <Button type="submit">{t('addNew')}</Button>
               </Flex>
-              {errors.newCategory?.type === 'required' && <InputErrorMessage message="請填入影片種類名稱" />}
-              {errors.newCategory?.type === 'validate' && <InputErrorMessage message="影片種類名稱不可以重複" />}
+              {errors.newCategory?.type === 'required' && <InputErrorMessage message={t('inputVideoCatName')} />}
+              {errors.newCategory?.type === 'validate' && <InputErrorMessage message={t('catCannotBeDuplicated')} />}
             </form>
             {categories && (
               <Box mt={2}>
@@ -60,7 +62,7 @@ function AddCategoryForm({ categories, isOpen, onClose }) {
                     onEdit={handleUpdateCategory}
                     onDelete={handleDeleteCategory}
                     validator={validator}
-                    errorMessage="影片種類名稱不可以重複"
+                    errorMessage={t('catCannotBeDuplicated')}
                   />
                 ))}
               </Box>

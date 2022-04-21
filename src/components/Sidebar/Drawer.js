@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import {
   Drawer,
   DrawerBody,
@@ -11,11 +12,13 @@ import {
 import SidebarContent from './Content';
 
 function SidebarDrawer({ isOpen, onClose }) {
+  const { t } = useTranslation();
+
   return (
     <Drawer isOpen={isOpen} placement="left" onClose={onClose} size="full" display="none">
       <DrawerOverlay>
         <DrawerContent>
-          <DrawerHeader>影片列表</DrawerHeader>
+          <DrawerHeader>{t('videoList')}</DrawerHeader>
           <DrawerCloseButton />
 
           <DrawerBody>
@@ -26,7 +29,7 @@ function SidebarDrawer({ isOpen, onClose }) {
             <Button variant="outline" mr={3} onClick={onClose}>
               Cancel
             </Button>
-            <Button color="blue">Save</Button>
+            <Button color="blue">{t('save')}</Button>
           </DrawerFooter>
         </DrawerContent>
       </DrawerOverlay>

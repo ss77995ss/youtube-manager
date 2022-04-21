@@ -1,4 +1,5 @@
 import { useForm } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 import {
   Box,
   Button,
@@ -17,6 +18,7 @@ import EditableInput from './EditableInput';
 import InputErrorMessage from '../common/InputErrorMessage';
 
 function CategoryForm({ categories }) {
+  const { t } = useTranslation();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { register, handleSubmit, errors } = useForm();
   const { addNewTimestampCategory, updateTimestampCategory, deleteTimestampCategory } = useVideosCtx();
@@ -31,12 +33,12 @@ function CategoryForm({ categories }) {
   return (
     <>
       <Button size="xs" fontSize={{ base: '0.65rem' }} onClick={onOpen}>
-        管理時間軸種類
+        {t('manageTimestamp')}
       </Button>
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>管理時間軸種類</ModalHeader>
+          <ModalHeader>{t('manageTimestamp')}</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
             <Box>
@@ -46,16 +48,18 @@ function CategoryForm({ categories }) {
                     mr={2}
                     variant="flushed"
                     name="newCategory"
-                    placeholder="輸入種類名稱"
+                    placeholder={t('inputTimestampCategory')}
                     ref={register({
                       required: true,
                       validate: validator,
                     })}
                   />
-                  <Button type="submit">新增</Button>
+                  <Button type="submit">{t('addNew')}</Button>
                 </Flex>
-                {errors.newCategory?.type === 'required' && <InputErrorMessage message="請填入時間軸種類名稱" />}
-                {errors.newCategory?.type === 'validate' && <InputErrorMessage message="時間軸種類名稱不可以重複" />}
+                {errors.newCategory?.type === 'required' && <InputErrorMessage message={t('inputTimestampCategory')} />}
+                {errors.newCategory?.type === 'validate' && (
+                  <InputErrorMessage message={t('tsCatCannotBeDuplicated')} />
+                )}
               </form>
               {categories && (
                 <Box mt={2}>
@@ -66,7 +70,7 @@ function CategoryForm({ categories }) {
                       onEdit={handleUpdateCategory}
                       onDelete={handleDeleteCategory}
                       validator={validator}
-                      errorMessage="時間軸種類名稱不可以重複"
+                      errorMessage={t('tsCatCannotBeDuplicated')}
                     />
                   ))}
                 </Box>

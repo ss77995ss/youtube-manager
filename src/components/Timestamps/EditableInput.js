@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { Flex, Input, Text, IconButton, ButtonGroup } from '@chakra-ui/react';
 import { CheckIcon, CloseIcon, DeleteIcon, EditIcon } from '@chakra-ui/icons';
 import { useForm } from 'react-hook-form';
@@ -6,6 +7,7 @@ import { editableInputMachine } from '../../machine/editableInput';
 import InputErrorMessage from '../common/InputErrorMessage';
 
 function EditableInput({ index, initialValue, onEdit, onDelete, validator, errorMessage }) {
+  const { t } = useTranslation();
   const { register, handleSubmit, errors } = useForm({ defaultValues: { edit: initialValue } });
   const [state, send] = useMachine(editableInputMachine);
   const handleOpen = () => send('OPEN_EDIT');
@@ -40,7 +42,7 @@ function EditableInput({ index, initialValue, onEdit, onDelete, validator, error
           <IconButton type="button" icon={<CloseIcon />} onClick={handleClose} />
         </ButtonGroup>
       </Flex>
-      {errors.edit?.type === 'required' && <InputErrorMessage message="請填入時間軸種類名稱" />}
+      {errors.edit?.type === 'required' && <InputErrorMessage message={t('inputTimestampCategory')} />}
       {errors.edit?.type === 'validate' && <InputErrorMessage message={errorMessage} />}
     </form>
   );
