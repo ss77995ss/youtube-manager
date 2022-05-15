@@ -1,4 +1,5 @@
 import { useForm } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 import {
   Box,
   Flex,
@@ -18,6 +19,7 @@ import CategoryForm from './CategoryForm';
 import TimeSelector from './TimeSelector';
 
 function TimestampForm({ actions, handleChangeMode }) {
+  const { t } = useTranslation();
   const { register, handleSubmit } = useForm();
   const { timestampCategories } = useVideosCtx();
 
@@ -50,16 +52,16 @@ function TimestampForm({ actions, handleChangeMode }) {
     <form onSubmit={handleSubmit(onSubmit)}>
       <Box mb={2} border="1px solid" p={4} rounded="md" shadow="md">
         <Heading as="h4" size="sm">
-          新增時間軸
+          {t('addNewTimestamp')}
         </Heading>
         <Stack direction={{ base: 'column', lg: 'row' }} mt={2}>
           <FormControl>
-            <FormLabel htmlFor="title">名稱*</FormLabel>
+            <FormLabel htmlFor="title">{t('timestampName')}</FormLabel>
             <Input name="title" type="text" ref={register({ required: true })} />
           </FormControl>
           <FormControl>
             <Flex>
-              <FormLabel htmlFor="category">時間軸種類</FormLabel>
+              <FormLabel htmlFor="category">{t('timestampCategory')}</FormLabel>
               <CategoryForm categories={timestampCategories} />
             </Flex>
             <Select name="category" ref={register}>
@@ -73,7 +75,7 @@ function TimestampForm({ actions, handleChangeMode }) {
             </Select>
           </FormControl>
           <FormControl>
-            <FormLabel htmlFor="description">敘述（非必填）</FormLabel>
+            <FormLabel htmlFor="description">{t('optionalDescription')}</FormLabel>
             <Input name="description" type="text" ref={register} />
           </FormControl>
         </Stack>
@@ -84,10 +86,10 @@ function TimestampForm({ actions, handleChangeMode }) {
           </Stack>
           <ButtonGroup justifyContent="flex-end">
             <Button type="submit" w={['50%', '50%', '30%', '25%']}>
-              確認
+              {t('confirm')}
             </Button>
             <Button onClick={handleChangeMode} w={['50%', '50%', '30%', '25%']}>
-              取消
+              {t('cancel')}
             </Button>
           </ButtonGroup>
         </Stack>

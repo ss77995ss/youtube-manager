@@ -12,6 +12,7 @@ import {
   useDisclosure,
 } from '@chakra-ui/react';
 import YouTube from 'react-youtube';
+import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { v1 as uuidv1 } from 'uuid';
@@ -42,6 +43,7 @@ const opts = {
 };
 
 function Create() {
+  const { t } = useTranslation();
   const history = useHistory();
   const query = useParams();
   const vh = query.get('vh');
@@ -78,7 +80,7 @@ function Create() {
 
   return (
     <Stack px={2}>
-      <Heading size="md">新增影片</Heading>
+      <Heading size="md">{t('addNewVideo')}</Heading>
       <Flex flexDirection={{ base: 'column', lg: 'row' }}>
         <Box mx={{ base: 'auto', lg: 10, '2xl': 20 }} mb={2} w="100%">
           <Box position="relative" pt="56.25%" w="100%">
@@ -95,27 +97,27 @@ function Create() {
         <form onSubmit={handleSubmit(onSubmit)}>
           <Box textAlign="left" w={{ base: '100%', lg: '420px', '2xl': '540px' }} height="100%">
             <Button w="100%" type="submit" disabled={!currentVideoUrl || videoError || !video}>
-              送出資料
+              {t('submitData')}
             </Button>
             <FormControl>
-              <FormLabel htmlFor="url">影片網址</FormLabel>
+              <FormLabel htmlFor="url">{t('videoUrl')}</FormLabel>
               <Input
                 name="url"
-                placeholder="輸入影片網址"
+                placeholder={t('')}
                 ref={register({ required: true, pattern: /^https:\/\/(youtu\.be|youtube\.com|www.youtube.com)/ })}
               />
-              {errors.videoUrl && <span>影片網址格式錯誤</span>}
+              {errors.videoUrl && <span>{t('invalidUrl')}</span>}
             </FormControl>
             <Flex mt={2}>
               <FormControl pr={2}>
-                <FormLabel htmlFor="title">影片標題*</FormLabel>
-                <Input name="title" placeholder="輸入影片標題" ref={register({ required: true })} />
+                <FormLabel htmlFor="title">{t('videoTitle')}</FormLabel>
+                <Input name="title" placeholder={t('inputVideoTitle')} ref={register({ required: true })} />
               </FormControl>
               <FormControl>
                 <Flex>
-                  <FormLabel htmlFor="category">影片種類</FormLabel>
+                  <FormLabel htmlFor="category">{t('videoCategory')}</FormLabel>
                   <Button size="xs" fontSize={{ base: '0.65rem' }} onClick={onOpen}>
-                    管理影片種類
+                    {t('')}
                   </Button>
                   <CategoryForm categories={categories} isOpen={isOpen} onClose={onClose} />
                 </Flex>
@@ -132,9 +134,9 @@ function Create() {
             </Flex>
             <FormControl height="calc(100% - 144px - 1rem - 40px - 24px - 1rem)">
               <FormLabel mt={2} htmlFor="description">
-                影片敘述
+                {t('videoDescription')}
               </FormLabel>
-              <Textarea height="100%" name="description" placeholder="輸入影片敘述" ref={register} />
+              <Textarea height="100%" name="description" placeholder={t('inputVideoDescription')} ref={register} />
             </FormControl>
           </Box>
         </form>

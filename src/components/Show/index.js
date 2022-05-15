@@ -1,12 +1,13 @@
+import { useEffect } from 'react';
 import { Box, Stack, Heading, Flex, Text, Textarea } from '@chakra-ui/react';
 import YouTube from 'react-youtube';
 import { useParams } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { useVideosCtx } from '../../hooks/useVideos';
 import { useYoutubeCtx } from '../../hooks/useYouTube';
 import useTimestamps from '../../hooks/useTimestamps';
 import Timestamps from '../Timestamps';
 import Buttons from './Buttons';
-import { useEffect } from 'react';
 
 const opts = {
   width: '100%',
@@ -18,11 +19,13 @@ const opts = {
 
 function Show() {
   const { id } = useParams();
+  const { t } = useTranslation();
   const { videos, updateVideo } = useVideosCtx();
   const video = videos.find((video) => video.id === id);
   const { videoId, title, description, timestamps } = video;
   const { video: ytVideo, handleReady } = useYoutubeCtx();
   const timestampsState = useTimestamps(timestamps);
+  const text = description || t('noDescription');
 
   const handleTimestamp = () => {
     if (timestampsState.matches('edit')) {
@@ -51,13 +54,13 @@ function Show() {
           <Stack mt={{ sm: 2, lg: 0 }} textAlign="left" w={{ base: '100%', lg: '420px' }} height="100%">
             <Buttons video={video} />
             <Heading as="h4" size="sm">
-              影片標題
+              {t('videoTitle')}
             </Heading>
             <Text>{title}</Text>
             <Heading as="h4" size="sm">
-              影片敘述
+              {t('videoDescription')}
             </Heading>
-            <Textarea p={0} h="100%" border="none" value={description || '無敘述'} isReadOnly />
+            <Textarea p={0} h="100%" border="none" value={text} isReadOnly />
           </Stack>
         </Box>
       </Flex>

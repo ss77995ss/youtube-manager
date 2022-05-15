@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import {
   Modal,
   ModalOverlay,
@@ -12,6 +13,7 @@ import {
 } from '@chakra-ui/react';
 
 function ConfirmModal({ text, isOpen, onClose, onConfirm }) {
+  const { t } = useTranslation();
   const handleConfirm = () => {
     onConfirm();
     onClose();
@@ -29,8 +31,8 @@ function ConfirmModal({ text, isOpen, onClose, onConfirm }) {
         </ModalBody>
         <ModalFooter>
           <ButtonGroup>
-            <Button onClick={handleConfirm}>確認</Button>
-            <Button onClick={onClose}>取消</Button>
+            <Button onClick={handleConfirm}>{t('Confirm')}</Button>
+            <Button onClick={onClose}>{t('Cancel')}</Button>
           </ButtonGroup>
         </ModalFooter>
       </ModalContent>

@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Box, Stack, Text, Button, Select, FormControl } from '@chakra-ui/react';
 import { useYoutubeCtx } from '../../hooks/useYouTube';
 
@@ -16,6 +17,7 @@ function getPreciseTime(seconds) {
 const FormItem = ({ children }) => <FormControl w="33%">{children}</FormControl>;
 
 function TimeSelector({ type, register }) {
+  const { t } = useTranslation();
   const [time, setTimestamp] = useState({
     [`${type}Hour`]: 0,
     [`${type}Minute`]: 0,
@@ -41,14 +43,16 @@ function TimeSelector({ type, register }) {
     });
   };
 
+  const text = type === 'start' ? t('startTime') : t('endTime');
+
   return (
     <Box w={{ base: '100%', lg: '50%' }}>
       <Stack my={2} direction="row">
         <Text align="left" fontWeight={500}>
-          {type === 'start' ? '開始時間' : '結束時間'}
+          {text}
         </Text>
         <Button size="xs" fontSize={{ base: '0.65rem' }} onClick={handleSetCurrentVideoTime}>
-          現在影片時間
+          {t('currentTime')}
         </Button>
       </Stack>
       <Stack direction="row" align="center">
